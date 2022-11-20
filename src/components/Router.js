@@ -1,6 +1,7 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
-import { Landing, Login } from "../pages";
+import { Landing, Login, Signup } from "../pages";
+
 
 export default function Router() {
     return (
@@ -8,6 +9,7 @@ export default function Router() {
             <Routes>
                 <Route path="/" element={<Landing />} />
                 <Route path="/login" element={<Login />} />
+                <Route path="/signup" element={<Signup />} />
             </Routes>
         </BrowserRouter>
     );

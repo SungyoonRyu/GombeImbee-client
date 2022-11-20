@@ -1,7 +1,10 @@
+import { LandingHeader, LandingOne } from "../components/landing";
+
 export default function Landing() {
     return (
         <p>
-            Landing pages
+            <LandingHeader />
+            <LandingOne />
         </p>
     );
 }
