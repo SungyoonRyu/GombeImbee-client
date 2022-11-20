@@ -1,5 +1,5 @@
 import { ForceGraph2D } from "react-force-graph";
-import nodeData from "../../testData";
+import nodeData from "./testData";
 
 const fontSize = 14;
 const fontStyle = 'Sans-Serif'
