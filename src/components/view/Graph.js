@@ -1,11 +1,7 @@
-import { useState } from "react";
 import { ForceGraph2D } from "react-force-graph";
-import Preview from './Preview';
+import ReactDOMServer from 'react-dom/server';
 
 export default function Graph(props) {
-  const [previewState, openPreview] = useState(false);
-  const [currentNode, setCurrentNode] = useState();
-
   var {style = {
     text_size: 16,
     text_font: 'Sans-Serif',
@@ -13,6 +9,9 @@ export default function Graph(props) {
     text_align: 'center',
     text_baseline: 'middle'
   }} = props;
+
+  var _previousNode;
+  var {backgroundColor = 'rgba(200, 200, 200, 1.0)'} = props;
 
   function nodeVisualize(node, ctx, globalScale) {
     nodeVisualizeShape(node=node, ctx=ctx, globalScale=globalScale);
@@ -25,7 +24,7 @@ export default function Graph(props) {
     ctx.beginPath(); 
     ctx.arc(node.x,
             node.y,
-            ctx.measureText(node.id).width / 1.7, 
+            ctx.measureText(node.title).width / 1.7, 
             0, 
             2 * Math.PI, 
             false); 
@@ -36,38 +35,62 @@ export default function Graph(props) {
     ctx.textAlign = style.text_align;
     ctx.textBaseline = style.text_baseline;
     ctx.fillStyle = style.text_color;
-    ctx.fillText(node.id, node.x, node.y);
+    ctx.fillText(node.title, node.x, node.y);
   }
 
-  function onNodeHover(node, prevNode) {
+  function nodePointerArea(node, color, ctx) {
+    ctx.fillStyle = color;
+    ctx.beginPath();
+    ctx.arc(node.x,
+      node.y,
+      ctx.measureText(node.title).width / 3.0, 
+      0, 
+      2 * Math.PI, 
+      false); 
+    ctx.fill(); 
+  }
+
+  function nodeGenerateInfo(node) {
+    node.info = ReactDOMServer.renderToString(
+      <div align='left' style={{lineHeight:'10px', margin:10}}>
+        <h2> {node.title}
+          <p style={{fontSize:'14px'}}>
+            Group: {node.group}
+          </p>
+        </h2>
+      </div>
+    );
+  } 
+
+  function nodeClearInfo(node) {
+    node.info = null;
+    _previousNode = null;
+  }
+
+  function onNodeHover(node) {
     if (node != null) {
-      openPreview(true);
-      setCurrentNode(node);
+      if (node === _previousNode) return;
+      nodeGenerateInfo(node);
+      _previousNode = node;
     }
-    else {
-      openPreview(false);
-    }
-  }
-  
-  function onNodeClick(node) {
-    if (node != null)
-      console.log("Click: " + node.id)
   }
 
-  return (
-    <>
-      { previewState ? 
-        <Preview 
-          node={currentNode}
-        /> : null
-      }
-      <ForceGraph2D 
-        graphData={props.nodeData}
-        onNodeHover={onNodeHover}
-        onNodeClick={onNodeClick}
-        nodeAutoColorBy="group"
-        nodeCanvasObject={nodeVisualize}
-      />
-    </>
-  )
+  if (props.activate) {
+    return (
+      <div>
+        <ForceGraph2D 
+          nodeLabel="info"
+          nodeAutoColorBy="group"
+          graphData={props.nodeData}
+          width={props.size.width}
+          height={props.size.height}
+          backgroundColor={backgroundColor}
+          onNodeHover={onNodeHover}
+          onNodeClick={props.onNodeClick}
+          nodeCanvasObject={nodeVisualize}
+          nodePointerAreaPaint={nodePointerArea}
+        />
+      </div>
+    )
+  }
 }

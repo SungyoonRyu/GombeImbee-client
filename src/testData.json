@@ -1,0 +1,42 @@
+{
+    "nodes": [
+        { 
+            "id": "1",
+            "title": "name1",
+            "group": "group1"
+        },
+        { 
+            "id": "2",
+            "title": "name2",
+            "group": "group1"
+        },
+        { 
+            "id": "3",
+            "title": "name3",
+            "group": "group2"
+        },
+        { 
+            "id": "4",
+            "title": "somename",
+            "group": "group1"
+        }
+    ], 
+    "links": [
+        {
+            "source": "1",
+            "target": "2"
+        },
+        {
+            "source": "1",
+            "target": "3"
+        },
+        {
+            "source": "1",
+            "target": "4"
+        },
+        {
+            "source": "2",
+            "target": "4"
+        }
+    ] 
+}

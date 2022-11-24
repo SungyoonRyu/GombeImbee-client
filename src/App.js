@@ -16,3 +16,39 @@ function App() {
 }
 
 export default App;
+
+
+// var testData = {
+//   "nodes": [
+//       { 
+//           "id": "name1",
+//           "group": "group1"
+//       },
+//       { 
+//           "id": "name2",
+//           "group": "group1"
+//       },
+//       { 
+//           "id": "name3",
+//           "group": "group2"
+//       },
+//       { 
+//           "id": "somename",
+//           "group": "group1"
+//       }
+//   ], 
+//   "links": [
+//       {
+//           "source": "name1",
+//           "target": "name2"
+//       },
+//       {
+//           "source": "name1",
+//           "target": "name3"
+//       },
+//       {
+//           "source": "name1",
+//           "target": "somename"
+//       }
+//   ] 
+// }
