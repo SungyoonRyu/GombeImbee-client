@@ -1,10 +1,19 @@
+import styled from "styled-components";
+
 import { LandingHeader, LandingOne } from "../components/landing";
 
 export default function Landing() {
     return (
-        <p>
+        <StLandingCont>
             <LandingHeader />
             <LandingOne />
-        </p>
+        </StLandingCont>
     );
 }
+
+const StLandingCont = styled.div`
+    margin: auto;
+    align: center;
+
+    width: 80%;
+`;
