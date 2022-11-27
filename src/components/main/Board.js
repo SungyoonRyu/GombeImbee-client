@@ -1,18 +1,26 @@
+import { useState } from "react";
 import styled from "styled-components"
 
-import Graph from "../view/Graph";
+import { GraphView, ListView } from "../view";
 
-import data from "../../testData.json";
+import testData from "../../testData.json";
 
 export default function Board() {
+    const [viewState, setView] = useState(true);
+
     return (
         <StBoard>
-            list
-            <Graph
-            activate={true}
-            nodeData={data}
-            size={{width: 800, height: 600}}
-            backgroundColor='rgba(255,255,255,1.0)'/>
+            <button onClick={()=>setView(!viewState)}> change view </button>
+            <ListView 
+                activate={viewState}
+                nodeData={testData}
+            />
+            <GraphView
+                activate={!viewState}
+                nodeData={testData}
+                size={{width: 800, height: 600}}
+                backgroundColor='rgba(200,200,200,1.0)'
+            />
         </StBoard>
     );
 }
