@@ -2,7 +2,7 @@ import { RecoilRoot } from "recoil";
 import { ThemeProvider } from "styled-components";
 
 import Router from "./components/Router";
-import theme from ",.theme"
+import theme from "./theme"
 
 
 function App() {
