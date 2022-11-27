@@ -1,5 +1,6 @@
-import { useState } from "react";
-import { Sidebar } from "../components/main";
+import styled from "styled-components";
+
+import { Sidebar, WorkspaceBoard } from "../components/main";
 
 import GraphView from "../components/view/Graph";
 import ListView from "../components/view/List";
