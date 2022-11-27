@@ -1,12 +1,16 @@
-import logo from './logo.svg';
+import { RouteContext } from "react-router/dist/lib/context";
+import { RecoilRoot } from "recoil";
+import { ThemeProvider } from "styled-components";
+
 import './App.css';
 import Router from "./components/Router";
 
+
 function App() {
   return (
-    <div>
+    <RecoilRoot>
       <Router />
-    </div>
+    </RecoilRoot>
   );
 }
 
