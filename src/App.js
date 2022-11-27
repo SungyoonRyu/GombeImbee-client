@@ -1,15 +1,16 @@
-import { RouteContext } from "react-router/dist/lib/context";
 import { RecoilRoot } from "recoil";
 import { ThemeProvider } from "styled-components";
 
-import './App.css';
 import Router from "./components/Router";
+import theme from ",.theme"
 
 
 function App() {
   return (
     <RecoilRoot>
-      <Router />
+      <ThemeProvider theme={theme}>
+        <Router />
+      </ThemeProvider>
     </RecoilRoot>
   );
 }
