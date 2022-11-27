@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { Sidebar, WorkspaceBoard } from "../components/main";
+import { Sidebar, Board } from "../components/main";
 
 import GraphView from "../components/view/Graph";
 import ListView from "../components/view/List";
@@ -11,7 +11,9 @@ export default function Main() {
 
     return (
         <>
-            <Sidebar />
+            <Sidebar />            
+            <Board />
+            
             <button onClick={()=>setView(!viewState)}> change view </button>
             <ListView 
                 activate={viewState}
