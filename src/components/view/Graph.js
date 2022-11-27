@@ -1,7 +1,7 @@
 import { ForceGraph2D } from "react-force-graph";
 import ReactDOMServer from 'react-dom/server';
 
-export default function Graph(props) {
+export default function GraphView(props) {
   var {style = {
     text_size: 16,
     text_font: 'Sans-Serif',
