@@ -2,11 +2,13 @@ import { useState } from "react";
 import styled from "styled-components"
 
 import { GraphView, ListView } from "../view";
+import useWindowDimensions from "../../utils/windowDimensions";
 
 import testData from "../../testData.json";
 
 export default function Board() {
-    const [viewState, setView] = useState(true);
+    const [viewState, setView] = useState(false);
+    const { height, width } = useWindowDimensions();
 
     return (
         <StBoard>
@@ -18,7 +20,7 @@ export default function Board() {
             <GraphView
                 activate={!viewState}
                 nodeData={testData}
-                size={{width: 800, height: 600}}
+                size={{width: width-281, height: height-51}}
                 backgroundColor='rgba(200,200,200,1.0)'
             />
         </StBoard>
@@ -28,7 +30,7 @@ export default function Board() {
 const StBoard = styled.div`
 transition: margin-left .5s;
 margin-left: 250px;
-height: 100%;
+height: 100%px;
 padding: 16px;
 background-color: #89A0C5;
 `;
