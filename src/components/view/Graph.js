@@ -1,5 +1,6 @@
 import { ForceGraph2D } from "react-force-graph";
 import ReactDOMServer from 'react-dom/server';
+import { useState } from "react";
 
 export default function GraphView(props) {
   var {style = {
@@ -12,50 +13,47 @@ export default function GraphView(props) {
 
   var _previousNode;
   var {backgroundColor = 'rgba(200, 200, 200, 1.0)'} = props;
+  const [scale, setScale] = useState(0.0);
 
   function nodeVisualize(node, ctx, globalScale) {
-    nodeVisualizeShape(node=node, ctx=ctx, globalScale=globalScale);
-    nodeVisualizeText(node=node, ctx=ctx)
-  }
+    if (ctx.measureText(node.title).width > 8)
+      node.visualTitle = node.title.substr(0, 5);
+    else
+      node.visualTitle = node.title;
+      
+    setScale(globalScale);
 
-  function nodeVisualizeShape(node, ctx, globalScale) {
-    ctx.font = `${style.text_size/globalScale}px ${style.text_font}`;
     ctx.fillStyle = node.color;
     ctx.beginPath(); 
-    ctx.arc(node.x,
-            node.y,
-            ctx.measureText(node.title).width / 1.7, 
-            0, 
-            2 * Math.PI, 
-            false); 
+    ctx.arc(node.x, node.y,
+            ctx.measureText(node.visualTitle).width / 1.7, 
+            0, 2 * Math.PI, false); 
     ctx.fill(); 
-  }
-  
-  function nodeVisualizeText(node, ctx) {
+    
+    ctx.font = `${style.text_size/scale}px ${style.text_font}`;
     ctx.textAlign = style.text_align;
     ctx.textBaseline = style.text_baseline;
     ctx.fillStyle = style.text_color;
-    ctx.fillText(node.title, node.x, node.y);
+    ctx.fillText(node.visualTitle, node.x, node.y);
   }
 
   function nodePointerArea(node, color, ctx) {
     ctx.fillStyle = color;
     ctx.beginPath();
-    ctx.arc(node.x,
-      node.y,
-      ctx.measureText(node.title).width / 3.0, 
-      0, 
-      2 * Math.PI, 
-      false); 
+    ctx.arc(node.x, node.y,
+            ctx.measureText(node.visualTitle).width / scale, 
+            0, 2 * Math.PI, false); 
     ctx.fill(); 
   }
 
   function nodeGenerateInfo(node) {
+    const title_limit = 30;
+
     node.info = ReactDOMServer.renderToString(
-      <div align='left' style={{lineHeight:'10px', margin:10}}>
-        <h2> {node.title}
+      <div align='left' style={{lineHeight:'18px', margin:10}}>
+        <h2> { node.title.length > title_limit ? node.title.substr(0, title_limit) + '...' : node.title}
           <p style={{fontSize:'14px'}}>
-            Group: {node.group}
+            {node.group}
           </p>
         </h2>
       </div>
@@ -78,7 +76,7 @@ export default function GraphView(props) {
   if (props.activate) {
     return (
       <div>
-        <ForceGraph2D 
+        <ForceGraph2D
           nodeLabel="info"
           nodeAutoColorBy="group"
           graphData={props.nodeData}

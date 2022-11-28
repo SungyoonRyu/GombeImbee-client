@@ -1,42 +1,172 @@
 {
+    "workspace": [
+        {
+            "key": "컴퓨터공학",
+            "group": [
+                "소프트웨어공학",
+                "컴퓨터구조",
+                "컴퓨터알고리즘",
+                "Robotics"
+            ]
+        },
+        {
+            "key": "인문학",
+            "group": []            
+        },
+        {
+            "key": "쇼핑",
+            "group": []
+        },
+        {
+            "key": "여행",
+            "group": []
+        },
+        {
+            "key": "먹거리",
+            "group": []
+        },
+        {
+            "key": "유튜브",
+            "group": []
+        }
+    ],
     "nodes": [
+        {
+            "id": "0",
+            "title": "컴퓨터공학"
+        },
+        {
+            "id": "0_1",
+            "title": "소프트웨어공학"
+        },
+        {
+            "id": "0_2",
+            "title": "컴퓨터구조"
+        },
+        {
+            "id": "0_3",
+            "title": "컴퓨터알고리즘"
+        },
         { 
             "id": "1",
-            "title": "name1",
-            "group": "group1"
+            "title": "클래스 다이어그램 사이트",
+            "info": "클래스 다이어그램 설명하는 사이트",
+            "url": "https://youngest-programming.tistory.com/14",
+            "group": "소프트웨어공학",
+            "tag": [
+                "다이어그램",
+                "클래스",
+                "오공완"
+            ]
         },
         { 
             "id": "2",
-            "title": "name2",
-            "group": "group1"
+            "title": "클래스 다이어그램 쉽게 그리자!",
+            "info": "",
+            "url": "https://m.blog.naver.com/PostView.naver",
+            "group": "소프트웨어공학",
+            "tag": []
         },
         { 
             "id": "3",
-            "title": "name3",
-            "group": "group2"
+            "title": "시퀸스 다이어그램 작성법 & 예제 총정리",
+            "info": "",
+            "url": "https://coding-factory.tistory.com/806",
+            "group": "소프트웨어공학",
+            "tag": []
         },
         { 
             "id": "4",
-            "title": "somename",
-            "group": "group1"
+            "title": "SPEC 2000",
+            "info": "",
+            "url": "https://www.spec.org/cpu2000/",
+            "group": "컴퓨터구조",
+            "tag": []
+        },
+        { 
+            "id": "5",
+            "title": "Edge computer",
+            "info": "",
+            "url": "https://blogs.nvidia.co.kr/2021/01/26/what-is-edge-computing/",
+            "group": "컴퓨터구조",
+            "tag": []
+        },
+        { 
+            "id": "6",
+            "title": "CPU 이름 규칙 기사",
+            "info": "",
+            "url": "https://it.donga.com/19061/",
+            "group": "컴퓨터구조",
+            "tag": []
+        },
+        { 
+            "id": "7",
+            "title": "arm architecture",
+            "info": "",
+            "url": "https://www.arm.com/architecture/cpu",
+            "group": "컴퓨터구조",
+            "tag": []
+        },
+        { 
+            "id": "8",
+            "title": "Heap 이란?",
+            "info": "",
+            "url": "https://todaycode.tistory.com/56",
+            "group": "컴퓨터알고리즘",
+            "tag": []
+        },
+        { 
+            "id": "9",
+            "title": "이진 탐색트리 정리",
+            "info": "",
+            "url": "https://yoongrammer.tistory.com/71",
+            "group": "컴퓨터알고리즘",
+            "tag": []
+        },
+        { 
+            "id": "10",
+            "title": "퀵 정렬(Quick sort)_개념/시간복잡도/Unstable/In-place",
+            "info": "",
+            "url": "https://aramarathon.tistory.com/m",
+            "group": "컴퓨터알고리즘",
+            "tag": []
+        },
+        { 
+            "id": "11",
+            "title": "시간복잡도 계산",
+            "info": "",
+            "url": "https://brownbears.tistory.com/577",
+            "group": "컴퓨터알고리즘",
+            "tag": []
         }
     ], 
     "links": [
-        {
-            "source": "1",
-            "target": "2"
-        },
-        {
-            "source": "1",
-            "target": "3"
-        },
-        {
-            "source": "1",
-            "target": "4"
-        },
-        {
-            "source": "2",
-            "target": "4"
-        }
+        { "source": "0", "target": "0_1" },
+        { "source": "0", "target": "0_2" },
+        { "source": "0", "target": "0_3" },
+
+        { "source": "0_1", "target": "1" },
+        { "source": "0_1", "target": "2" },
+        { "source": "0_1", "target": "3" },
+
+        { "source": "0_2", "target": "4" },
+        { "source": "0_2", "target": "5" },
+        { "source": "0_2", "target": "6" },
+        { "source": "0_2", "target": "7" },
+
+        { "source": "0_3", "target": "8" },
+        { "source": "0_3", "target": "9" },
+        { "source": "0_3", "target": "10" },
+        { "source": "0_3", "target": "11" },
+
+        { "source": "1", "target": "2" },
+        { "source": "1", "target": "3" },
+        { "source": "4", "target": "5" },
+        { "source": "4", "target": "6" },
+        { "source": "6", "target": "7" },
+        { "source": "8", "target": "9" },
+        { "source": "9", "target": "10" },
+        { "source": "10", "target": "11"}
+
     ] 
 }
