@@ -16,6 +16,8 @@ export default function GraphView(props) {
   const [scale, setScale] = useState(0.0);
 
   function nodeVisualize(node, ctx, globalScale) {
+    // if (node.group == null) return;
+
     if (ctx.measureText(node.title).width > 8)
       node.visualTitle = node.title.substr(0, 5);
     else
@@ -38,6 +40,8 @@ export default function GraphView(props) {
   }
 
   function nodePointerArea(node, color, ctx) {
+    if (node.group == null) return;
+    
     ctx.fillStyle = color;
     ctx.beginPath();
     ctx.arc(node.x, node.y,
