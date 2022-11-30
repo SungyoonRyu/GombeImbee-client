@@ -5,12 +5,13 @@ export default function ListView(props) {
     return(
       <>
         {props.nodeData.nodes.map((node) => {
-          if (node.group == null) return null;
+          if (node.type == 'workspace') return null;
           return (
             <p key={node.id}> 
-              Title: {node.title}
-              <br/>
-              Group: {node.group}
+              <span style={{fontSize: '20px'}}> 
+                {node.title} 
+              </span>
+              <br/> {node.url}
             </p>
           );
         })}  

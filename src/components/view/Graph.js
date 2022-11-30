@@ -1,6 +1,6 @@
 import { ForceGraph2D } from "react-force-graph";
 import ReactDOMServer from 'react-dom/server';
-import { useState } from "react";
+import { useState, useCallback, useRef } from "react";
 
 export default function GraphView(props) {
   var {style = {
@@ -12,8 +12,12 @@ export default function GraphView(props) {
   }} = props;
 
   var _previousNode;
+  var _currentWorkspace;
+  var _currentGroup;
+
   var {backgroundColor = 'rgba(200, 200, 200, 1.0)'} = props;
   const [scale, setScale] = useState(0.0);
+  const graphRef = useRef();
 
   function nodeVisualize(node, ctx, globalScale) {
     // if (node.group == null) return;
@@ -40,8 +44,6 @@ export default function GraphView(props) {
   }
 
   function nodePointerArea(node, color, ctx) {
-    if (node.group == null) return;
-    
     ctx.fillStyle = color;
     ctx.beginPath();
     ctx.arc(node.x, node.y,
@@ -72,15 +74,39 @@ export default function GraphView(props) {
   function onNodeHover(node) {
     if (node != null) {
       if (node === _previousNode) return;
+      if (node.group == null) return;
       nodeGenerateInfo(node);
       _previousNode = node;
     }
   }
 
+  const onNodeClick = useCallback(node => {
+    if (node == null) return;
+    if (node.type == 'node') {
+      if (props.onNodeClick != null) {
+        props.onNodeClick(node);
+      }
+    }
+    else if (node.type == 'group') {
+      graphRef.current.zoomToFit(500, 100, (ele) => ele.group == node.title);
+      _currentWorkspace = node.workspace;
+      _currentGroup = node.title;
+    }
+    else if (node.type == 'workspace') {
+      graphRef.current.zoomToFit(500, 100, (ele) => ele.workspace == node.title);
+      _currentWorkspace = node.title;
+    }
+  }, [graphRef]);
+
+  const onBackgroundClick = useCallback(node => {
+    graphRef.current.zoomToFit(500, 100, (ele) => ele.workspace == _currentWorkspace);
+  }, [graphRef]);
+
   if (props.activate) {
     return (
       <div>
         <ForceGraph2D
+          ref={graphRef}
           nodeLabel="info"
           nodeAutoColorBy="group"
           graphData={props.nodeData}
@@ -88,9 +114,10 @@ export default function GraphView(props) {
           height={props.size.height}
           backgroundColor={backgroundColor}
           onNodeHover={onNodeHover}
-          onNodeClick={props.onNodeClick}
+          onNodeClick={onNodeClick}
           nodeCanvasObject={nodeVisualize}
           nodePointerAreaPaint={nodePointerArea}
+          onBackgroundClick={onBackgroundClick}
         />
       </div>
     )
