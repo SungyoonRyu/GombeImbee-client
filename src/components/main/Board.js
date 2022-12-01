@@ -8,7 +8,7 @@ import testData from "../../testData.json";
 
 export default function Board() {
     const [viewState, setView] = useState(false);
-    const { height, width } = useWindowDimensions();
+    const {height, width} = useWindowDimensions();
 
     return (
         <StBoard>

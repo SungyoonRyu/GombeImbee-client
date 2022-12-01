@@ -52,22 +52,58 @@ export default function GraphView(props) {
     ctx.fill(); 
   }
 
-  function nodeGenerateInfo(node) {
-    const title_limit = 30;
+  function substr(limit, str) {
+    return str.length > limit ? str.substr(0, limit) + '...' : str;
+  }
 
-    node.info = ReactDOMServer.renderToString(
-      <div align='left' style={{lineHeight:'18px', margin:10}}>
-        <h2> { node.title.length > title_limit ? node.title.substr(0, title_limit) + '...' : node.title}
-          <p style={{fontSize:'14px'}}>
-            {node.group}
+  function nodeGenerateTooltip(node) {
+    const title_limit = 30;
+    const url_limit = 30;
+    const info_limit = 30;
+
+    node.tooltip = ReactDOMServer.renderToString(
+      <div align='left'>
+        <span>
+          <p>
+            제목: <br/>
+            <span>
+              { substr(title_limit, node.title) }
+            </span>
           </p>
-        </h2>
+          <br/>
+          <p>
+            URL: <br/>
+            <span>
+              { substr(url_limit, node.url) }
+            </span>
+          </p>
+          <br/>
+          <p>
+            태그: <br/>
+            <span>
+              { node.tags.map((tag) => {
+                return(
+                  <span key={tag.id}>
+                    #{tag}&nbsp;
+                  </span> 
+                );
+              })}
+            </span>
+          </p>
+          <br/>
+          <p>
+            설명: <br/>
+            <span>
+              { substr(info_limit, node.info) }
+            </span>
+          </p>
+        </span>
       </div>
     );
   } 
 
-  function nodeClearInfo(node) {
-    node.info = null;
+  function nodeClearTooltip(node) {
+    node.tooltip = null;
     _previousNode = null;
   }
 
@@ -75,7 +111,7 @@ export default function GraphView(props) {
     if (node != null) {
       if (node === _previousNode) return;
       if (node.group == null) return;
-      nodeGenerateInfo(node);
+      nodeGenerateTooltip(node);
       _previousNode = node;
     }
   }
@@ -107,7 +143,7 @@ export default function GraphView(props) {
       <div>
         <ForceGraph2D
           ref={graphRef}
-          nodeLabel="info"
+          nodeLabel="tooltip"
           nodeAutoColorBy="group"
           graphData={props.nodeData}
           width={props.size.width}

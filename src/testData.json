@@ -62,7 +62,7 @@
             "url": "https://youngest-programming.tistory.com/14",
             "group": "소프트웨어공학",
             "workspace": "컴퓨터공학",
-            "tag": [
+            "tags": [
                 "다이어그램",
                 "클래스",
                 "오공완"
@@ -76,7 +76,7 @@
             "url": "https://m.blog.naver.com/PostView.naver",
             "group": "소프트웨어공학",
             "workspace": "컴퓨터공학",
-            "tag": []
+            "tags": []
         },
         { 
             "id": "3",
@@ -86,7 +86,7 @@
             "url": "https://coding-factory.tistory.com/806",
             "group": "소프트웨어공학",
             "workspace": "컴퓨터공학",
-            "tag": []
+            "tags": []
         },
         { 
             "id": "4",
@@ -96,7 +96,7 @@
             "url": "https://www.spec.org/cpu2000/",
             "group": "컴퓨터구조",
             "workspace": "컴퓨터공학",
-            "tag": []
+            "tags": []
         },
         { 
             "id": "5",
@@ -106,7 +106,7 @@
             "url": "https://blogs.nvidia.co.kr/2021/01/26/what-is-edge-computing/",
             "group": "컴퓨터구조",
             "workspace": "컴퓨터공학",
-            "tag": []
+            "tags": []
         },
         { 
             "id": "6",
@@ -116,7 +116,7 @@
             "url": "https://it.donga.com/19061/",
             "group": "컴퓨터구조",
             "workspace": "컴퓨터공학",
-            "tag": []
+            "tags": []
         },
         { 
             "id": "7",
@@ -126,7 +126,7 @@
             "url": "https://www.arm.com/architecture/cpu",
             "group": "컴퓨터구조",
             "workspace": "컴퓨터공학",
-            "tag": []
+            "tags": []
         },
         { 
             "id": "8",
@@ -136,7 +136,7 @@
             "url": "https://todaycode.tistory.com/56",
             "group": "컴퓨터알고리즘",
             "workspace": "컴퓨터공학",
-            "tag": []
+            "tags": []
         },
         { 
             "id": "9",
@@ -146,7 +146,7 @@
             "url": "https://yoongrammer.tistory.com/71",
             "group": "컴퓨터알고리즘",
             "workspace": "컴퓨터공학",
-            "tag": []
+            "tags": []
         },
         { 
             "id": "10",
@@ -156,7 +156,7 @@
             "url": "https://aramarathon.tistory.com/m",
             "group": "컴퓨터알고리즘",
             "workspace": "컴퓨터공학",
-            "tag": []
+            "tags": []
         },
         { 
             "id": "11",
@@ -166,7 +166,7 @@
             "url": "https://brownbears.tistory.com/577",
             "group": "컴퓨터알고리즘",
             "workspace": "컴퓨터공학",
-            "tag": []
+            "tags": []
         }
     ], 
     "links": [
