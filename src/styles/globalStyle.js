@@ -8,6 +8,10 @@ export const GlobalSyle = createGlobalStyle`
         box-sizing: border-box;
     }
 
+    html {
+        height: 100%;
+    }
+
     input {
 
     }

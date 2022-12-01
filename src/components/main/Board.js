@@ -28,9 +28,11 @@ export default function Board() {
 }
 
 const StBoard = styled.div`
+position: fixed;
 transition: margin-left .5s;
 margin-left: 250px;
-height: 100%px;
+height: 100%;
+width:100%;
 padding: 16px;
 background-color: #89A0C5;
 `;
