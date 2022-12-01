@@ -13,6 +13,7 @@ export default function GraphView(props) {
     text_baseline: 'middle'
   }} = props;
 
+  var _previousNode;
   var _currentWorkspace;
   var _currentGroup;
 
@@ -66,6 +67,7 @@ export default function GraphView(props) {
       if (node === _previousNode) return;
       if (node.group == null) return;
       nodeGenerateTooltip(node);
+      _previousNode = node;
     }
   }
 
