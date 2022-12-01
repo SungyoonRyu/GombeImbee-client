@@ -4,24 +4,25 @@ export default function ListView(props) {
   if (props.activate) {
     return(
       <>
-        {props.nodeData.nodes.map((node) => {
-          if (node.type == 'workspace') return null;
-          else if (node.type == 'group') {
-            return (
-              <div key={node.id} style={{float: 'left'}}>
-                {node.title}&nbsp;&nbsp;
-              </div>
-            );
-          }
+        {props.nodeData.groups.map((groupName) => {
           return (
-            <p key={node.id}> 
-              <span style={{fontSize: '20px'}}> 
-                {node.title} 
-              </span>
-              <br/> {node.url}
-            </p>
+            <div key={groupName}>
+              <h2> {groupName} </h2>
+              {props.nodeData.nodes.filter(node => node.group === groupName)
+                .map((node) => {
+                  return (
+                    <p key={node.id}> 
+                      <span style={{fontSize: '20px'}}> 
+                        {node.title} 
+                      </span>
+                      <br/> {node.url}
+                    </p>
+                  );
+                }
+              )}
+            </div>
           );
-        })}  
+        })}
       </>
     );
   }

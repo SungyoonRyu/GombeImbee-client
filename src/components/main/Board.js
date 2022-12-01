@@ -7,7 +7,7 @@ import useWindowDimensions from "../../utils/windowDimensions";
 import testData from "../../testData.json";
 
 export default function Board() {
-    const [viewState, setView] = useState(false);
+    const [viewState, setView] = useState(true);
     const {height, width} = useWindowDimensions();
 
     return (

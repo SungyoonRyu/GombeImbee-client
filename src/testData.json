@@ -1,34 +1,9 @@
 {
-    "workspace": [
-        {
-            "key": "컴퓨터공학",
-            "group": [
-                "소프트웨어공학",
-                "컴퓨터구조",
-                "컴퓨터알고리즘",
-                "Robotics"
-            ]
-        },
-        {
-            "key": "인문학",
-            "group": []            
-        },
-        {
-            "key": "쇼핑",
-            "group": []
-        },
-        {
-            "key": "여행",
-            "group": []
-        },
-        {
-            "key": "먹거리",
-            "group": []
-        },
-        {
-            "key": "유튜브",
-            "group": []
-        }
+    "groups": [
+        "소프트웨어공학",
+        "컴퓨터구조",
+        "컴퓨터알고리즘",
+        "Robotics"
     ],
     "nodes": [
         {
@@ -39,20 +14,17 @@
         {
             "id": "0_1",
             "title": "소프트웨어공학",
-            "type": "group",
-            "workspace": "컴퓨터공학"
+            "type": "group"
         },
         {
             "id": "0_2",
             "title": "컴퓨터구조",
-            "type": "group",
-            "workspace": "컴퓨터공학"
+            "type": "group"
         },
         {
             "id": "0_3",
             "title": "컴퓨터알고리즘",
-            "type": "group",
-            "workspace": "컴퓨터공학"
+            "type": "group"
         },
         { 
             "id": "1",
@@ -61,7 +33,6 @@
             "info": "클래스 다이어그램 설명하는 사이트",
             "url": "https://youngest-programming.tistory.com/14",
             "group": "소프트웨어공학",
-            "workspace": "컴퓨터공학",
             "tags": [
                 "다이어그램",
                 "클래스",
@@ -75,7 +46,6 @@
             "info": "",
             "url": "https://m.blog.naver.com/PostView.naver",
             "group": "소프트웨어공학",
-            "workspace": "컴퓨터공학",
             "tags": []
         },
         { 
@@ -85,7 +55,6 @@
             "info": "",
             "url": "https://coding-factory.tistory.com/806",
             "group": "소프트웨어공학",
-            "workspace": "컴퓨터공학",
             "tags": []
         },
         { 
@@ -95,7 +64,6 @@
             "info": "",
             "url": "https://www.spec.org/cpu2000/",
             "group": "컴퓨터구조",
-            "workspace": "컴퓨터공학",
             "tags": []
         },
         { 
@@ -105,7 +73,6 @@
             "info": "",
             "url": "https://blogs.nvidia.co.kr/2021/01/26/what-is-edge-computing/",
             "group": "컴퓨터구조",
-            "workspace": "컴퓨터공학",
             "tags": []
         },
         { 
@@ -115,7 +82,6 @@
             "info": "",
             "url": "https://it.donga.com/19061/",
             "group": "컴퓨터구조",
-            "workspace": "컴퓨터공학",
             "tags": []
         },
         { 
@@ -125,7 +91,6 @@
             "info": "",
             "url": "https://www.arm.com/architecture/cpu",
             "group": "컴퓨터구조",
-            "workspace": "컴퓨터공학",
             "tags": []
         },
         { 
@@ -135,7 +100,6 @@
             "info": "",
             "url": "https://todaycode.tistory.com/56",
             "group": "컴퓨터알고리즘",
-            "workspace": "컴퓨터공학",
             "tags": []
         },
         { 
@@ -145,7 +109,6 @@
             "info": "",
             "url": "https://yoongrammer.tistory.com/71",
             "group": "컴퓨터알고리즘",
-            "workspace": "컴퓨터공학",
             "tags": []
         },
         { 
@@ -155,7 +118,6 @@
             "info": "",
             "url": "https://aramarathon.tistory.com/m",
             "group": "컴퓨터알고리즘",
-            "workspace": "컴퓨터공학",
             "tags": []
         },
         { 
@@ -165,7 +127,6 @@
             "info": "",
             "url": "https://brownbears.tistory.com/577",
             "group": "컴퓨터알고리즘",
-            "workspace": "컴퓨터공학",
             "tags": []
         }
     ], 
