@@ -2,6 +2,8 @@ import { ForceGraph2D } from "react-force-graph";
 import ReactDOMServer from 'react-dom/server';
 import { useState, useCallback, useRef } from "react";
 
+import Tooltip from "./Tooltip";
+
 export default function GraphView(props) {
   var {style = {
     text_size: 16,
@@ -11,7 +13,6 @@ export default function GraphView(props) {
     text_baseline: 'middle'
   }} = props;
 
-  var _previousNode;
   var _currentWorkspace;
   var _currentGroup;
 
@@ -52,67 +53,19 @@ export default function GraphView(props) {
     ctx.fill(); 
   }
 
-  function substr(limit, str) {
-    return str.length > limit ? str.substr(0, limit) + '...' : str;
-  }
-
   function nodeGenerateTooltip(node) {
-    const title_limit = 30;
-    const url_limit = 30;
-    const info_limit = 30;
-
     node.tooltip = ReactDOMServer.renderToString(
-      <div align='left'>
-        <span>
-          <p>
-            제목: <br/>
-            <span>
-              { substr(title_limit, node.title) }
-            </span>
-          </p>
-          <br/>
-          <p>
-            URL: <br/>
-            <span>
-              { substr(url_limit, node.url) }
-            </span>
-          </p>
-          <br/>
-          <p>
-            태그: <br/>
-            <span>
-              { node.tags.map((tag) => {
-                return(
-                  <span key={tag.id}>
-                    #{tag}&nbsp;
-                  </span> 
-                );
-              })}
-            </span>
-          </p>
-          <br/>
-          <p>
-            설명: <br/>
-            <span>
-              { substr(info_limit, node.info) }
-            </span>
-          </p>
-        </span>
-      </div>
+      <Tooltip
+        node={node}
+      />
     );
   } 
-
-  function nodeClearTooltip(node) {
-    node.tooltip = null;
-    _previousNode = null;
-  }
 
   function onNodeHover(node) {
     if (node != null) {
       if (node === _previousNode) return;
       if (node.group == null) return;
       nodeGenerateTooltip(node);
-      _previousNode = node;
     }
   }
 
