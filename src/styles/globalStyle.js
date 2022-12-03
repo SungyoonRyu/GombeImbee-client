@@ -6,10 +6,12 @@ export const GlobalSyle = createGlobalStyle`
 
     * {
         box-sizing: border-box;
+        margin: 0px;
     }
 
     html {
         height: 100%;
+        font-family: sans-serif;
     }
 
     input {

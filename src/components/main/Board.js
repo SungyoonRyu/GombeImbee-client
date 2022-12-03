@@ -30,9 +30,9 @@ export default function Board() {
 const StBoard = styled.div`
 position: fixed;
 transition: margin-left .5s;
-margin-left: 250px;
 height: 100%;
 width:100%;
-padding: 16px;
-background-color: #89A0C5;
+padding: 10px;
+padding-left: 250px;
+background-color: #CDE0FE;
 `;
