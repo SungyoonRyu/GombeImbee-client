@@ -29,7 +29,7 @@ const StLabel = styled.label`
     display: block;
     margin: 50px auto 10px;
     width: 500px;
-    font-size: 24px;
+    font-size: 18px;
 `;
 
 const StInput = styled.input`
@@ -42,8 +42,13 @@ const StInput = styled.input`
 `;
 
 const StButton = styled.button`
-    height: 40px;
-    width: 100px;
+    display: block;
+    margin: 60px auto;
+    height: 50px;
+    width: 110px;
     background-color: #2F76E6;
     border-style: none;
+    font-size: 20px;
+    font-weight: bold;
+    color: #ffffff;
 `;
