@@ -37,3 +37,6 @@ typings/
 
 # Package lock json
 package-lock.json
+
+# Config file
+src/utils/config.json
