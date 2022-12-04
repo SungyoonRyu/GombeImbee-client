@@ -3,16 +3,33 @@ import styled from "styled-components"
 
 import { GraphView, ListView } from "../view";
 import useWindowDimensions from "../../utils/windowDimensions";
+import { useRecoilValue, useResetRecoilState } from "recoil";
 
+import { isLoginState } from "../../utils/atom";
 import testData from "../../testData.json";
+import { useNavigate } from "react-router-dom";
 
 export default function Board() {
     const [viewState, setView] = useState(true);
     const {height, width} = useWindowDimensions();
+    const userInfo = useRecoilValue(isLoginState);
+    const resetUser = useResetRecoilState(isLoginState);
+    const navigate = useNavigate();
+
+    const logout = () => {
+        resetUser();
+        navigate("/");   
+    }
 
     return (
         <StBoard>
             <button onClick={()=>setView(!viewState)}> change view </button>
+
+            <span>
+                &nbsp;&nbsp; Hello, {userInfo.id}; &nbsp;&nbsp;
+                <button onClick={logout}>Log out</button>
+            </span>
+
             <ListView 
                 activate={viewState}
                 nodeData={testData}

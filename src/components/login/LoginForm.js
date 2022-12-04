@@ -3,10 +3,13 @@ import axios from "axios";
 
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { useRecoilState } from "recoil";
 
 import { Popup } from "../view";
+import { isLoginState } from "../../utils/atom";
 
 import config from "../../utils/config.json";
+import def from "./LoginDef.json"
 
 export default function LoginForm() {
     const [id, setId] = useState();
@@ -15,6 +18,8 @@ export default function LoginForm() {
     const [msg, setMsg] = useState();
     const [loading, setLoading] = useState(false);
     const [modal, setModal] = useState(false);
+
+    const [loginState, setLoginState] = useRecoilState(isLoginState);
 
     const navigate = useNavigate();
     
@@ -30,24 +35,25 @@ export default function LoginForm() {
 
     const login = (event) => {
         event.preventDefault();
-        if (!id) return setMsg("ID를 입력하세요.");          
-        else if (!pw) return setMsg("Password를 입력하세요.");
+        if (!id) return setMsg(def.ERROR.VALUE_NULL_ID);          
+        else if (!pw) return setMsg(def.ERROR.VALUE_NULL_PASSWD);
 
         let loginData = {id: id, pw: pw};
         axios.post(config.ip+config.port+'/usr/signin', loginData)
             .then(res => {
                 if (res.status == 200) {
                     setMsg("Login 성공!");
-                    // TODO: 로그인 정보 저장
+                    setLoginState({id: res.data.id, state: true});
                     navigate("/main");
                 }
             })
             .catch(error => {
+                console.log(error);
                 let status = error.response.status;
-                if      (status == 400) setMsg("Id와 Password를 입력해주세요.");
-                else if (status == 401) setMsg("존재하지 않는 ID 입니다.");
-                else if (status == 402) setMsg("Password가 틀립니다.");
-                else                    setMsg("UNKNOWN_ERROR");
+                if      (status == 400) setMsg(def.ERROR.VALUE_NULL);
+                else if (status == 401) setMsg(def.ERROR.INVALID_ID);
+                else if (status == 402) setMsg(def.ERROR.INVALID_PASSWD);
+                else                    setMsg(def.ERROR.UNKNOWN);
             })
         setLoading(true);
     }
@@ -60,7 +66,6 @@ export default function LoginForm() {
                     placeholder="이메일 입력" 
                     onChange={(e)=>setId(e.target.value)}
                 />
-
                 <StLabel>Password</StLabel>
                 <StInput 
                     type="password" 
@@ -69,7 +74,6 @@ export default function LoginForm() {
                 />
                 <StButton type="submit" disabled={loading}>로그인</StButton>
             </StForm>
-            
             <Popup
                 isOpen={modal}
                 onRequestClose={()=>setModal(false)}
@@ -111,13 +115,4 @@ const StButton = styled.button`
     font-size: 20px;
     font-weight: bold;
     color: #ffffff;
-`;
-
-const StModal = styled.div`
-    width: 100vw;
-    height: 100vh;
-    display: flex;
-    flex-flow: row wrep;
-    justify-content: center;
-    align-items: center;
 `;

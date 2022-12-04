@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 import { Popup } from "../view";
 
 import config from "../../utils/config.json";
+import def from "./SignupDef.json";
 
 export default function SignupForm() {
     const [name, setName] = useState();
@@ -36,12 +37,12 @@ export default function SignupForm() {
 
     const signup = (ele) => {
         ele.preventDefault();
-        if (!name) return setMsg("이름을 입력하세요.");
-        else if (!id) return setMsg("ID를 입력하세요.");          
-        else if (!pw) return setMsg("Password를 입력하세요.");
-        else if (!pwVerify) return setMsg("비밀번호 확인을 입력하세요.");
-        else if (!email) return setMsg("이메일을 입력하세요.");
-        else if (pw != pwVerify) return setMsg("비밀번호가 일치하지 않습니다.");
+        if (!name) return setMsg(def.ERROR.VALUE_NULL_NAME);
+        else if (!id) return setMsg(def.ERROR.VALUE_NULL_ID);          
+        else if (!pw) return setMsg(def.ERROR.VALUE_NULL_PASSWD);
+        else if (!pwVerify) return setMsg(def.ERROR.VALUE_NULL_PASSVER);
+        else if (!email) return setMsg(def.ERROR.VALUE_NULL_EMAIL);
+        else if (pw != pwVerify) return setMsg(def.ERROR.INVALID_PASSWD);
 
         let signupData = {name: name, id: id, pw: pw, email: email};
         axios.post(config.ip+config.port+'/usr/signup', signupData)
@@ -53,8 +54,8 @@ export default function SignupForm() {
             })
             .catch(error => {
                 let status = error.response.status;
-                if      (status == 400) setMsg("모든 정보를 기입하여 주시기 바랍니다.");
-                else if (status == 401) setMsg("이미 존재하는 Id 입니다.");
+                if      (status == 400) setMsg(def.ERROR.INVALID_PASSWD);
+                else if (status == 401) setMsg(def.ERROR.INVALID_ID);
             })      
     }
 
