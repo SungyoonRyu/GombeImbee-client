@@ -2,7 +2,9 @@ import styled from "styled-components";
 import axios from "axios";
 
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { Popup } from "../view";
+
 import config from "../../utils/config.json";
 
 export default function SignupForm() {
@@ -11,17 +13,35 @@ export default function SignupForm() {
     const [pw, setPw] = useState();
     const [pwVerify, setPwVerify] = useState();
     const [email, setEmail] = useState();
+
     const [msg, setMsg] = useState();
+    const [loading, setLoading] = useState(false);
+    const [modal, setModal] = useState(false);
+
     const navigate = useNavigate();
+
+    useEffect(() => {
+        if (msg) {
+            setModal(true);
+            setTimeout(() => {
+                setMsg("");
+                setLoading(false);
+            }, 1500);
+        }
+    }, [msg]);
+
+    const cancel = () => {
+        navigate("/");
+    }
 
     const signup = (ele) => {
         ele.preventDefault();
-        if (!name) return alert("이름을 입력하세요.");
-        else if (!id) return alert("ID를 입력하세요.");          
-        else if (!pw) return alert("Password를 입력하세요.");
-        else if (!pwVerify) return alert("비밀번호 확인을 입력하세요.");
-        else if (!email) return alert("이메일을 입력하세요.");
-        else if (pw != pwVerify) return alert("비밀번호가 일치하지 않습니다.");
+        if (!name) return setMsg("이름을 입력하세요.");
+        else if (!id) return setMsg("ID를 입력하세요.");          
+        else if (!pw) return setMsg("Password를 입력하세요.");
+        else if (!pwVerify) return setMsg("비밀번호 확인을 입력하세요.");
+        else if (!email) return setMsg("이메일을 입력하세요.");
+        else if (pw != pwVerify) return setMsg("비밀번호가 일치하지 않습니다.");
 
         let signupData = {name: name, id: id, pw: pw, email: email};
         axios.post(config.ip+config.port+'/usr/signup', signupData)
@@ -30,27 +50,39 @@ export default function SignupForm() {
                     alert("가입성공!");
                     navigate("/");
                 }
-                else if (res.status == 400) setMsg("모든 정보를 기입하여 주시기 바랍니다.");
-                else if (res.status == 401) setMsg("이미 존재하는 Id 입니다.");
-            });        
+            })
+            .catch(error => {
+                let status = error.response.status;
+                if      (status == 400) setMsg("모든 정보를 기입하여 주시기 바랍니다.");
+                else if (status == 401) setMsg("이미 존재하는 Id 입니다.");
+            })      
     }
 
     return (
-        <StForm onSubmit={signup}>
-            <StLabel>User name</StLabel>
-            <StInput onChange={(e)=>setName(e.target.value)}/>
-            <StLabel>User ID</StLabel>
-            <StInput onChange={(e)=>setId(e.target.value)}/>
-            <StLabel>Password</StLabel>
-            <StInput type="password" onChange={(e)=>setPw(e.target.value)}/>
-            <StLabel>Password check</StLabel>
-            <StInput type="password" onChange={(e)=>setPwVerify(e.target.value)}/>
-            <StLabel>User Emain</StLabel>
-            <StInput onChange={(e)=>setEmail(e.target.value)}/>
+        <>
+            <StForm onSubmit={signup}>
+                <StLabel>User name</StLabel>
+                <StInput onChange={(e)=>setName(e.target.value)}/>
+                <StLabel>User ID</StLabel>
+                <StInput onChange={(e)=>setId(e.target.value)}/>
+                <StLabel>Password</StLabel>
+                <StInput type="password" onChange={(e)=>setPw(e.target.value)}/>
+                <StLabel>Password check</StLabel>
+                <StInput type="password" onChange={(e)=>setPwVerify(e.target.value)}/>
+                <StLabel>User Emain</StLabel>
+                <StInput onChange={(e)=>setEmail(e.target.value)}/>
 
-            <StButton>Signup</StButton>
+                <StButton type="submit" disabled={loading}>회원가입</StButton>
+                <StButton disabled={loading} onClick={()=>cancel()}>취소</ StButton>
 
-        </StForm>
+            </StForm>
+
+            <Popup 
+                isOpen={modal}
+                onRequestClose={()=>setModal(false)}
+                content={msg}
+            />
+        </>
     );
 }
 
