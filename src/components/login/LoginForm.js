@@ -3,7 +3,7 @@ import axios from "axios";
 
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { useSetRecoilState } from "recoil";
+import { useRecoilState } from "recoil";
 
 import { Popup } from "../view";
 import { isLoginState } from "../../utils/atom";
@@ -19,7 +19,7 @@ export default function LoginForm() {
     const [loading, setLoading] = useState(false);
     const [modal, setModal] = useState(false);
 
-    const setLoginState = useSetRecoilState(isLoginState);
+    const [loginState, setLoginState] = useRecoilState(isLoginState);
 
     const navigate = useNavigate();
     
@@ -70,14 +70,12 @@ export default function LoginForm() {
                     placeholder="이메일 입력" 
                     onChange={(e)=>setId(e.target.value)}
                 />
-
                 <StLabel>Password</StLabel>
                 <StInput 
                     type="password" 
                     placeholder="비밀번호 입력" 
                     onChange={(e)=>setPw(e.target.value)}
                 />
-
                 <div style={{margin:'60px auto', width:'400px'}}>
                     <StButton type="submit" disabled={loading}>로그인</StButton>
                 </div>
@@ -85,7 +83,6 @@ export default function LoginForm() {
                     <StButton disabled={loading} onClick={()=>cancel()}>취소</StButton>
                 </div>
             </StForm>
-            
             <Popup
                 isOpen={modal}
                 onRequestClose={()=>setModal(false)}
