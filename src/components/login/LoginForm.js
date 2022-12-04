@@ -33,10 +33,6 @@ export default function LoginForm() {
         }
     }, [msg]);
 
-    const cancel = () => {
-        navigate("/");
-    }
-
     const login = (event) => {
         event.preventDefault();
         if (!id) return setMsg(def.ERROR.VALUE_NULL_ID);          
@@ -76,12 +72,7 @@ export default function LoginForm() {
                     placeholder="비밀번호 입력" 
                     onChange={(e)=>setPw(e.target.value)}
                 />
-                <div style={{margin:'60px auto', width:'400px'}}>
-                    <StButton type="submit" disabled={loading}>로그인</StButton>
-                </div>
-                <div style={{margin:'60px auto', width:'400px'}}>
-                    <StButton disabled={loading} onClick={()=>cancel()}>취소</StButton>
-                </div>
+                <StButton type="submit" disabled={loading}>로그인</StButton>
             </StForm>
             <Popup
                 isOpen={modal}
@@ -124,13 +115,4 @@ const StButton = styled.button`
     font-size: 20px;
     font-weight: bold;
     color: #ffffff;
-`;
-
-const StModal = styled.div`
-    width: 100vw;
-    height: 100vh;
-    display: flex;
-    flex-flow: row wrep;
-    justify-content: center;
-    align-items: center;
 `;
