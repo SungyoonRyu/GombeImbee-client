@@ -8,7 +8,6 @@ import { isLoginState } from "../utils/atom";
 
 export default function Router() {
     const login = useRecoilValue(isLoginState);
-    console.log(login);
     
     return (
         <BrowserRouter>
