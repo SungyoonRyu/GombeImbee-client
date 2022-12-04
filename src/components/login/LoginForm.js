@@ -28,10 +28,6 @@ export default function LoginForm() {
         }
     }, [msg]);
 
-    const cancel = () => {
-        navigate("/");
-    }
-
     const login = (event) => {
         event.preventDefault();
         if (!id) return setMsg("ID를 입력하세요.");          
@@ -71,13 +67,7 @@ export default function LoginForm() {
                     placeholder="비밀번호 입력" 
                     onChange={(e)=>setPw(e.target.value)}
                 />
-
-                <div style={{margin:'60px auto', width:'400px'}}>
-                    <StButton type="submit" disabled={loading}>로그인</StButton>
-                </div>
-                <div style={{margin:'60px auto', width:'400px'}}>
-                    <StButton disabled={loading} onClick={()=>cancel()}>취소</StButton>
-                </div>
+                <StButton type="submit" disabled={loading}>로그인</StButton>
             </StForm>
             
             <Popup

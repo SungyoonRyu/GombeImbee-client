@@ -73,8 +73,6 @@ export default function SignupForm() {
                 <StInput onChange={(e)=>setEmail(e.target.value)}/>
 
                 <StButton type="submit" disabled={loading}>회원가입</StButton>
-                <StButton disabled={loading} onClick={()=>cancel()}>취소</ StButton>
-
             </StForm>
 
             <Popup 
