@@ -15,7 +15,8 @@ export default function UserPofile() {
 }
 
 const StWrapper = styled.div`
-    margin: 20px 0px;
+    margin: 20px 0px 40px;
+    padding: 20px 0px;
 `;
 
 const StUserImg = styled.div`
@@ -29,4 +30,5 @@ const StUserName = styled.div`
     margin: 10px auto;
     width: 230px;
     text-align: center;
+    font-size: 24px;
 `;
