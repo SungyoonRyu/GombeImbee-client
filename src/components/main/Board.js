@@ -6,11 +6,10 @@ import useWindowDimensions from "../../utils/windowDimensions";
 import { useRecoilValue, useResetRecoilState } from "recoil";
 
 import { isLoginState } from "../../utils/atom";
-import testData from "../../testData.json";
 import { useNavigate } from "react-router-dom";
 
 export default function Board() {
-    const [viewState, setView] = useState(true);
+    const [viewState, setView] = useState(false);
     const {height, width} = useWindowDimensions();
     const userInfo = useRecoilValue(isLoginState);
     const resetUser = useResetRecoilState(isLoginState);
@@ -32,11 +31,9 @@ export default function Board() {
 
             <ListView 
                 activate={viewState}
-                nodeData={testData}
             />
             <GraphView
                 activate={!viewState}
-                nodeData={testData}
                 size={{width: width-281, height: height-51}}
                 backgroundColor='rgba(200,200,200,1.0)'
             />

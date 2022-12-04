@@ -1,8 +1,11 @@
 import { ForceGraph2D } from "react-force-graph";
 import ReactDOMServer from 'react-dom/server';
-import { useState, useCallback, useRef } from "react";
+import { useState, useCallback, useRef, useEffect } from "react";
+import cloneDeep from 'lodash/cloneDeep';
 
 import Tooltip from "./Tooltip";
+import { useRecoilValue } from "recoil";
+import { bookmarkData } from "../../utils/atom";
 
 export default function GraphView(props) {
   var {style = {
@@ -19,7 +22,13 @@ export default function GraphView(props) {
 
   var {backgroundColor = 'rgba(200, 200, 200, 1.0)'} = props;
   const [scale, setScale] = useState(0.0);
+  const [nodeData, setNodeData] = useState({nodes: [], links: []});
+  const originalData = useRecoilValue(bookmarkData);
   const graphRef = useRef();
+
+  useEffect(() => {
+    setNodeData(cloneDeep(originalData));
+  }, [originalData]);
 
   function nodeVisualize(node, ctx, globalScale) {
     // if (node.group == null) return;
@@ -100,7 +109,7 @@ export default function GraphView(props) {
           ref={graphRef}
           nodeLabel="tooltip"
           nodeAutoColorBy="group"
-          graphData={props.nodeData}
+          graphData={nodeData}
           width={props.size.width}
           height={props.size.height}
           backgroundColor={backgroundColor}

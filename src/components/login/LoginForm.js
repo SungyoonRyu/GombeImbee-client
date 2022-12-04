@@ -3,13 +3,14 @@ import axios from "axios";
 
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { useRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 
 import { Popup } from "../view";
-import { isLoginState } from "../../utils/atom";
+import { isLoginState, bookmarkData } from "../../utils/atom";
 
 import config from "../../utils/config.json";
 import def from "./LoginDef.json"
+import testData from "../../testData.json";
 
 export default function LoginForm() {
     const [id, setId] = useState();
@@ -19,7 +20,8 @@ export default function LoginForm() {
     const [loading, setLoading] = useState(false);
     const [modal, setModal] = useState(false);
 
-    const [loginState, setLoginState] = useRecoilState(isLoginState);
+    const setLoginState = useSetRecoilState(isLoginState);
+    const setBookmarkData = useSetRecoilState(bookmarkData);
 
     const navigate = useNavigate();
     
@@ -38,14 +40,22 @@ export default function LoginForm() {
         if (!id) return setMsg(def.ERROR.VALUE_NULL_ID);          
         else if (!pw) return setMsg(def.ERROR.VALUE_NULL_PASSWD);
 
-        let loginData = {id: id, pw: pw};
-        axios.post(config.ip+config.port+'/usr/signin', loginData)
+        let reqData = {id: id, pw: pw};
+        axios.post(config.ip+config.port+'/usr/signin', reqData)
             .then(res => {
-                if (res.status == 200) {
-                    setMsg("Login 성공!");
-                    setLoginState({id: res.data.id, state: true});
-                    navigate("/main");
-                }
+                if (res.status != 200) return;
+                setMsg("Login 성공!");
+                setLoginState({id: res.data.id, state: true});
+
+                // reqData = {id: id}
+                // axios.get(config.ip+config.port+'/', reqData)
+                //     .then(res => {
+                //         if (res.status != 200) return;
+                //         setBookmarkData(res.data);
+                //     })
+                setBookmarkData(testData);
+                
+                navigate("/main");
             })
             .catch(error => {
                 console.log(error);

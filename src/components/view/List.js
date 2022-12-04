@@ -1,14 +1,19 @@
 import styled from "styled-components";
+import { useRecoilValue } from "recoil";
+
+import { bookmarkData } from "../../utils/atom";
 
 export default function ListView(props) {
+  const nodeData = useRecoilValue(bookmarkData);
+
   if (props.activate) {
     return(
       <StList>
-        {props.nodeData.groups.map((groupName) => {
+        {nodeData.groups.map((groupName) => {
           return (
             <StGroup key={groupName}>
               <StGroupName> {groupName} </StGroupName>
-              {props.nodeData.nodes.filter(node => node.group === groupName)
+              {nodeData.nodes.filter(node => node.group === groupName)
                 .map((node) => {
                   return (
                     <StBookNode key={node.id}> 

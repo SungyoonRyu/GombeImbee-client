@@ -7,3 +7,8 @@ export const isLoginState = atom({
         state: false
     }
 });
+
+export const bookmarkData = atom({
+    key: "bookmarkData",
+    default: {}
+})
