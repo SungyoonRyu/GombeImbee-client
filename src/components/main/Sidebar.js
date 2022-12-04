@@ -1,9 +1,12 @@
 import styled from "styled-components"
+import UserPofile from "./UserProfile";
+import WorkspaceList from "./WorkspaceList";
 
 export default function Sidebar() {
     return (
         <StSidebar>
-            Sidebar
+            <UserPofile />
+            <WorkspaceList />
         </StSidebar>
     );
 }

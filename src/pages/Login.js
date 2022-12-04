@@ -26,7 +26,7 @@ const StLoginCont = styled.div`
 
 const StLoginBox = styled.div`
     margin: 150px auto;
-    height: 680px;
+    height: 730px;
     width: 900px;
     background-color: #F4F5F7;
     boarder-radius: 10px 10px;

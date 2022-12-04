@@ -26,7 +26,7 @@ const StSignupCont = styled.div`
 
 const StSignupBox = styled.div`
     margin: 150px auto;
-    height: 1030px;
+    height: 1080px;
     width: 900px;
     background-color: #F4F5F7;
     boarder-radius: 10px 10px;
