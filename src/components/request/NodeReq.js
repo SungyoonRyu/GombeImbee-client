@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import config from "../../utils/config.json";
+import { config } from "../../definitions";
 
 import nodeData from "./node.json";
 

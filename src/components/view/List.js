@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { useRecoilValue } from "recoil";
 
+import { useRecoilValue } from "recoil";
 import { nodeData, groupData } from "../../utils/atom";
 
 export default function ListView(props) {
