@@ -1,17 +1,44 @@
 import styled from "styled-components";
 
+import axios from "axios";
+import { config } from "../../definitions";
+
+import { useRecoilValue, useSetRecoilState, useRecoilState } from "recoil";
+import { nodeData, linkData, groupData, workspaceData, workspaceState } from "../../utils/atom";
+
 export default function WorkspaceList() {
+    const workspaces = useRecoilValue(workspaceData);
+    const [currentWorkspace, setCurrentWorkspace] = useRecoilState(workspaceState);
+
+    const setNodeData = useSetRecoilState(nodeData);
+    const setLinkData = useSetRecoilState(linkData);
+    const setGroupData = useSetRecoilState(groupData);
+    
+    const changeWorkspace = async (workspace) => {
+        if (currentWorkspace == workspace.title) return;
+        setCurrentWorkspace(workspace);
+
+        try {
+            var params = {id: workspace.id}
+            const groupRes = await axios.get(config.ip+config.port+'/group/get_list', {params: params});
+            setGroupData(groupRes.data);
+
+            params = {id: workspace.id}
+            const nodeRes = await axios.get(config.ip+config.port+'/workspace/get_node', {params: params});
+            setNodeData(nodeRes.data);
+        }
+        catch (error) { console.log(error); }
+    }
+
     return (
         <StWrapper>
-            <StWSRow>1번</StWSRow>
-            <StWSRow>2번</StWSRow>
-            <StWSRow>3번</StWSRow>
-            <StWSRow>4번</StWSRow>
-            <StWSRow>5번testtesttesttesttesttesttesttest</StWSRow>
-            <StWSRow>6번</StWSRow>
-            <StWSRow>7번</StWSRow>
-            <StWSRow>8번</StWSRow>
-            <StWSRow>9번</StWSRow>
+            { workspaces.map(workspace => {
+                return (
+                    <StWSRow onClick={e=>changeWorkspace(workspace)}>
+                        {workspace.title}
+                    </StWSRow>
+                );
+            })}
         </StWrapper>
     );
 }

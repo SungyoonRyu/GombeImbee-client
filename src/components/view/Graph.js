@@ -27,8 +27,6 @@ export default function GraphView(props) {
   }} = props;
 
   var _previousNode;
-  var _currentWorkspace;
-  var _currentGroup;
 
   var {backgroundColor = 'rgba(200, 200, 200, 1.0)'} = props;
   const graphRef = useRef();
@@ -43,18 +41,22 @@ export default function GraphView(props) {
   const currentWorkspace = useRecoilValue(workspaceState);
 
   useEffect(() => {
+    if (workspace.length == 0) return;
+    console.log("test");
+
     setGraphData(graphData => {
       let links = cloneDeep(link);
+      var fail = false;
 
       let workspaces = {
         id: -1,
-        title: workspace[currentWorkspace],
+        title: currentWorkspace.title,
         type: TYPE.WORKSPACE
       };
 
       let groups = group.map(ele => {
         links.push({
-          source: workspaces.id,
+          source: -1,
           target: 100000000 + ele.id
         });
 
@@ -65,9 +67,9 @@ export default function GraphView(props) {
         };
       });
 
-      let nodes = cloneDeep(node)
-        .map(ele => {
-          let sourceGroup = groups.find(ele_g => ele_g.title === ele.group);
+      let nodes = cloneDeep(node).map(ele => {
+          let sourceGroup = groups.find(ele_g => ele_g.title === ele.fgroup_title);
+          if (sourceGroup === undefined) { fail = true; return; }
           links.push({
             source: sourceGroup.id,
             target: ele.id
@@ -76,6 +78,11 @@ export default function GraphView(props) {
           ele.type = TYPE.NODE
           return ele;
       });
+
+      if (fail) {
+        graphData = {nodes: [], links: []};
+        return graphData;
+      }
 
       graphData = {
         nodes: [workspaces, ...groups, ...nodes],
@@ -129,7 +136,7 @@ export default function GraphView(props) {
   function onNodeHover(node) {
     if (node != null) {
       if (node === _previousNode) return;
-      if (node.group == null) return;
+      if (node.group_id == null) return;
       nodeGenerateTooltip(node);
       _previousNode = node;
     }
@@ -137,24 +144,22 @@ export default function GraphView(props) {
 
   const onNodeClick = useCallback(node => {
     if (node == null) return;
-    if (node.type == 'node') {
+    if (node.type == TYPE.NODE) {
       if (props.onNodeClick != null) {
         props.onNodeClick(node);
       }
     }
     else if (node.type == TYPE.GROUP) {
-      graphRef.current.zoomToFit(500, 100, (ele) => ele.group == node.title);
-      _currentWorkspace = node.workspace;
-      _currentGroup = node.title;
+      graphRef.current.zoomToFit(500, 100, 
+        (ele) => ele.fgroup_title == node.title); 
     }
     else if (node.type == TYPE.WORKSPACE) {
       graphRef.current.zoomToFit(500, 100);
-      _currentWorkspace = node.title;
     }
   }, [graphRef]);
 
   const onBackgroundClick = useCallback(node => {
-    graphRef.current.zoomToFit(500, 100, (ele) => ele.workspace == _currentWorkspace);
+    graphRef.current.zoomToFit(500, 100);
   }, [graphRef]);
 
   if (props.activate) {
@@ -163,7 +168,7 @@ export default function GraphView(props) {
         <ForceGraph2D
           ref={graphRef}
           nodeLabel="tooltip"
-          nodeAutoColorBy="group"
+          nodeAutoColorBy="group_id"
           graphData={graphData}
           width={width-281}
           height={height-51}

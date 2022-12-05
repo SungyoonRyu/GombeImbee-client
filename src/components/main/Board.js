@@ -11,10 +11,7 @@ export default function Board() {
     return (
         <StBoard>
             <button onClick={()=>setView(!viewState)}> change view </button>
-
-            <span>
-                <LogoutSeq />
-            </span>
+            <LogoutSeq />
 
             <ListView 
                 activate={viewState}

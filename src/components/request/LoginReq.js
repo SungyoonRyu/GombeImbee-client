@@ -4,7 +4,7 @@ import { loginDef, config } from "../../definitions";
 
 const loginReq = (event, id, pw) => {
     event.preventDefault();
-    return {state: true, id: id};
+    return {state: true, id: 'qwer'};
 
     event.preventDefault();
     if (!id) return loginDef.ERROR.VALUE_NULL_ID;          

@@ -27,20 +27,20 @@ export default function Tooltip({node}) {
           <p>
             태그: <br/>
             <span>
-              { node.tags.map((tag) => {
+              { node.tags ? node.tags.map((tag) => {
                 return(
                   <span key={tag.id}>
                     #{tag}&nbsp;
                   </span> 
                 );
-              })}
+              }) : null }
             </span>
           </p>
           <br/>
           <p>
             설명: <br/>
             <span>
-              { substr(info_limit, node.info) }
+              { node.description ? substr(info_limit, node.description) : null }
             </span>
           </p>
         </span>

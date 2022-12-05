@@ -14,7 +14,7 @@ export default function ListView(props) {
           return (
             <StGroup key={group.id}>
               <StGroupName> {group.title} </StGroupName>
-              {nodes.filter(node => node.group === group.title)
+              {nodes.filter(node => node.group_id === group.id)
                 .map((node) => {
                   return (
                     <StBookNode key={node.id}> 

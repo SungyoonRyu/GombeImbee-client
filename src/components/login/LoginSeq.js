@@ -2,11 +2,13 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 import { useSetRecoilState } from "recoil";
-import { isLoginState, nodeData, linkData, groupData, workspaceData } from "../../utils/atom";
+import { isLoginState, nodeData, linkData, groupData, workspaceData, workspaceState } from "../../utils/atom";
 
-import { groupReq, linkReq, loginReq, nodeReq, workspaceReq } from "../request";
+import axios from "axios";
+import { config } from "../../definitions";
 
 import LoginForm from "./LoginForm";
+import loginReq from "../request/LoginReq";
 
 export default function LoginSeq() {
     const [id, setId] = useState();
@@ -21,7 +23,7 @@ export default function LoginSeq() {
     const setLinkData = useSetRecoilState(linkData);
     const setGroupData = useSetRecoilState(groupData);
     const setWorkspaceData = useSetRecoilState(workspaceData);
-    
+    const setWorkspaceState = useSetRecoilState(workspaceState);
 
     const navigate = useNavigate();
     
@@ -35,15 +37,33 @@ export default function LoginSeq() {
         }
     }, [msg]);
 
-    const login = (event) => {
+    const login = async (event) => {
         setLoading(true);
         let result = loginReq(event, id, pw);
         if (result.state) {
             setLoginState(result);
-            setNodeData(nodeReq());
-            setLinkData(linkReq());
-            setGroupData(groupReq());
-            setWorkspaceData(workspaceReq());
+
+            try {
+                var params = {id: result.id};
+                const workspaceRes = await axios.get(config.ip+config.port+'/workspace/get_list', {params: params});
+                if (workspaceRes.status == 200) {
+                    let initialWorkspace = workspaceRes.data[0]
+                    setWorkspaceData(workspaceRes.data);
+                    setWorkspaceState(initialWorkspace);
+
+                    try {
+                        params = {id: initialWorkspace.id}
+                        const groupRes = await axios.get(config.ip+config.port+'/group/get_list', {params: params});
+                        setGroupData(groupRes.data);
+
+                        params = {id: initialWorkspace.id}
+                        const nodeRes = await axios.get(config.ip+config.port+'/workspace/get_node', {params: params});
+                        setNodeData(nodeRes.data);
+                    }
+                    catch (error) { console.log(error); }
+                }
+            }
+            catch (error) { console.log(error); }
             navigate("/main");
         }
         else {

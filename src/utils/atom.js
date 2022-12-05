@@ -10,7 +10,7 @@ export const isLoginState = atom({
 
 export const workspaceState = atom({
     key: "workspaceState",
-    default: 0
+    default: {}
 })
 
 export const nodeData = atom({
