@@ -10,11 +10,11 @@ export default function ListView(props) {
   if (props.activate) {
     return(
       <StList>
-        {groups.map((groupName) => {
+        {groups.map((group) => {
           return (
-            <StGroup key={groupName}>
-              <StGroupName> {groupName} </StGroupName>
-              {nodes.filter(node => node.group === groupName)
+            <StGroup key={group.id}>
+              <StGroupName> {group.title} </StGroupName>
+              {nodes.filter(node => node.group === group.title)
                 .map((node) => {
                   return (
                     <StBookNode key={node.id}> 

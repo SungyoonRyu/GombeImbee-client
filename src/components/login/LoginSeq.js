@@ -21,6 +21,7 @@ export default function LoginSeq() {
     const setLinkData = useSetRecoilState(linkData);
     const setGroupData = useSetRecoilState(groupData);
     const setWorkspaceData = useSetRecoilState(workspaceData);
+    
 
     const navigate = useNavigate();
     

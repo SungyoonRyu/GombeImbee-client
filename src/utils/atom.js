@@ -8,6 +8,11 @@ export const isLoginState = atom({
     }
 });
 
+export const workspaceState = atom({
+    key: "workspaceState",
+    default: 0
+})
+
 export const nodeData = atom({
     key: "nodeData",
     default: []

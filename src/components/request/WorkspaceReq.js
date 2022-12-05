@@ -2,7 +2,7 @@ import axios from "axios";
 
 import { config } from "../../definitions";
 
-import workspaceData from "./group.json";
+import workspaceData from "./workspace.json";
 
 const workspaceReq = (workspace) => {
     return workspaceData;
