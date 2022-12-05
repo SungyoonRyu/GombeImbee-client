@@ -1,14 +1,11 @@
-import styled from "styled-components";
-
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 import { useSetRecoilState } from "recoil";
-import { isLoginState, bookmarkData } from "../../utils/atom";
+import { isLoginState, nodeData, linkData, groupData, workspaceData } from "../../utils/atom";
 
-import loginReq from "../request/LoginReq";
+import { groupReq, linkReq, loginReq, nodeReq, workspaceReq } from "../request";
 
-import testData from "../../testData.json";
 import LoginForm from "./LoginForm";
 
 export default function Login() {
@@ -20,7 +17,10 @@ export default function Login() {
     const [modal, setModal] = useState(false);
 
     const setLoginState = useSetRecoilState(isLoginState);
-    const setBookmarkData = useSetRecoilState(bookmarkData);
+    const setNodeData = useSetRecoilState(nodeData);
+    const setLinkData = useSetRecoilState(linkData);
+    const setGroupData = useSetRecoilState(groupData);
+    const setWorkspaceData = useSetRecoilState(workspaceData);
 
     const navigate = useNavigate();
     
@@ -39,13 +39,10 @@ export default function Login() {
         let result = loginReq(event, id, pw);
         if (result.state) {
             setLoginState(result);
-            // reqData = {id: id}
-            // axios.get(config.ip+config.port+'/', reqData)
-            //     .then(res => {
-            //         if (res.status != 200) return;
-            //         setBookmarkData(res.data);
-            //     })
-            setBookmarkData(testData);
+            setNodeData(nodeReq());
+            setLinkData(linkReq());
+            setGroupData(groupReq());
+            setWorkspaceData(workspaceReq());
             navigate("/main");
         }
         else {

@@ -8,7 +8,22 @@ export const isLoginState = atom({
     }
 });
 
-export const bookmarkData = atom({
-    key: "bookmarkData",
-    default: {}
-})
+export const nodeData = atom({
+    key: "nodeData",
+    default: []
+});
+
+export const linkData = atom({
+    key: "linkData",
+    default: []
+});
+
+export const groupData = atom({
+    key: "groupData",
+    default: []
+});
+
+export const workspaceData = atom({
+    key: "workspaceData",
+    default: []
+});

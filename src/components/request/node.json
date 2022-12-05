@@ -1,0 +1,105 @@
+[
+    { 
+        "id": "1",
+        "title": "클래스 다이어그램 사이트",
+        "type": "node",
+        "info": "클래스 다이어그램 설명하는 사이트",
+        "url": "https://youngest-programming.tistory.com/14",
+        "group": "소프트웨어공학",
+        "tags": [
+            "다이어그램",
+            "클래스",
+            "오공완"
+        ]
+    },
+    { 
+        "id": "2",
+        "title": "클래스 다이어그램 쉽게 그리자!",
+        "type": "node",
+        "info": "",
+        "url": "https://m.blog.naver.com/PostView.naver",
+        "group": "소프트웨어공학",
+        "tags": []
+    },
+    { 
+        "id": "3",
+        "title": "시퀸스 다이어그램 작성법 & 예제 총정리",
+        "type": "node",
+        "info": "",
+        "url": "https://coding-factory.tistory.com/806",
+        "group": "소프트웨어공학",
+        "tags": []
+    },
+    { 
+        "id": "4",
+        "title": "SPEC 2000",
+        "type": "node",
+        "info": "",
+        "url": "https://www.spec.org/cpu2000/",
+        "group": "컴퓨터구조",
+        "tags": []
+    },
+    { 
+        "id": "5",
+        "title": "Edge computer",
+        "type": "node",
+        "info": "",
+        "url": "https://blogs.nvidia.co.kr/2021/01/26/what-is-edge-computing/",
+        "group": "컴퓨터구조",
+        "tags": []
+    },
+    { 
+        "id": "6",
+        "title": "CPU 이름 규칙 기사",
+        "type": "node",
+        "info": "",
+        "url": "https://it.donga.com/19061/",
+        "group": "컴퓨터구조",
+        "tags": []
+    },
+    { 
+        "id": "7",
+        "title": "arm architecture",
+        "type": "node",
+        "info": "",
+        "url": "https://www.arm.com/architecture/cpu",
+        "group": "컴퓨터구조",
+        "tags": []
+    },
+    { 
+        "id": "8",
+        "title": "Heap 이란?",
+        "type": "node",
+        "info": "",
+        "url": "https://todaycode.tistory.com/56",
+        "group": "컴퓨터알고리즘",
+        "tags": []
+    },
+    { 
+        "id": "9",
+        "title": "이진 탐색트리 정리",
+        "type": "node",
+        "info": "",
+        "url": "https://yoongrammer.tistory.com/71",
+        "group": "컴퓨터알고리즘",
+        "tags": []
+    },
+    { 
+        "id": "10",
+        "title": "퀵 정렬(Quick sort)_개념/시간복잡도/Unstable/In-place",
+        "type": "node",
+        "info": "",
+        "url": "https://aramarathon.tistory.com/m",
+        "group": "컴퓨터알고리즘",
+        "tags": []
+    },
+    { 
+        "id": "11",
+        "title": "시간복잡도 계산",
+        "type": "node",
+        "info": "",
+        "url": "https://brownbears.tistory.com/577",
+        "group": "컴퓨터알고리즘",
+        "tags": []
+    }
+]

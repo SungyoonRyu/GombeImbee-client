@@ -6,7 +6,7 @@ import { GraphView, ListView } from "../view";
 import { LogoutSeq } from "../login";
 
 export default function Board() {
-    const [viewState, setView] = useState(false);
+    const [viewState, setView] = useState(true);
 
     return (
         <StBoard>
@@ -19,10 +19,10 @@ export default function Board() {
             <ListView 
                 activate={viewState}
             />
-            <GraphView
+            {/* <GraphView
                 activate={!viewState}
                 backgroundColor='rgba(200,200,200,1.0)'
-            />
+            /> */}
         </StBoard>
     );
 }

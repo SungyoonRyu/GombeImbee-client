@@ -5,7 +5,8 @@ import ReactDOMServer from 'react-dom/server';
 import { useState, useCallback, useRef, useEffect } from "react";
 
 import { useRecoilValue } from "recoil";
-import { bookmarkData } from "../../utils/atom";
+import { nodeData, linkData, groupData, workspaceData } from "../../utils/atom";
+
 import useWindowDimensions from "../../utils/windowDimensions";
 
 import Tooltip from "./Tooltip";
@@ -29,7 +30,7 @@ export default function GraphView(props) {
   const {height, width} = useWindowDimensions();
 
   const [nodeData, setNodeData] = useState({nodes: [], links: []});
-  const originalData = useRecoilValue(bookmarkData);
+  const originalData = useRecoilValue(nodeData);
 
   useEffect(() => {
     setNodeData(cloneDeep(originalData));

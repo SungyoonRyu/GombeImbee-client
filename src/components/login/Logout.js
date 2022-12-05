@@ -1,15 +1,21 @@
 import { useNavigate } from "react-router-dom";
 import { useResetRecoilState } from "recoil";
-import { isLoginState, bookmarkData } from "../../utils/atom";
+import { isLoginState, nodeData, linkData, groupData, workspaceData } from "../../utils/atom";
 
 export default function Logout() {
     const resetUser = useResetRecoilState(isLoginState);
-    const resetData = useResetRecoilState(bookmarkData);
+    const resetNode = useResetRecoilState(nodeData);
+    const resetLink = useResetRecoilState(linkData);
+    const resetGroup = useResetRecoilState(groupData);
+    const resetWorkspace = useResetRecoilState(workspaceData);
     const navigate = useNavigate();
 
     const logout = () => {
         resetUser();
-        resetData();
+        resetNode();
+        resetLink();
+        resetGroup();
+        resetWorkspace();
         navigate("/");
     }
 
