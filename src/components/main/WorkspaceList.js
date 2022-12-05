@@ -6,6 +6,8 @@ import { config } from "../../definitions";
 import { useRecoilValue, useSetRecoilState, useRecoilState } from "recoil";
 import { nodeData, linkData, groupData, workspaceData, workspaceState } from "../../utils/atom";
 
+import linkdata from "../request/link.json";
+
 export default function WorkspaceList() {
     const workspaces = useRecoilValue(workspaceData);
     const [currentWorkspace, setCurrentWorkspace] = useRecoilState(workspaceState);
@@ -26,6 +28,9 @@ export default function WorkspaceList() {
             params = {id: workspace.id}
             const nodeRes = await axios.get(config.ip+config.port+'/workspace/get_node', {params: params});
             setNodeData(nodeRes.data);
+
+            if (workspace.title == "컴퓨터공학")
+                setLinkData(linkdata);
         }
         catch (error) { console.log(error); }
     }
