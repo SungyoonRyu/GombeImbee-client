@@ -42,7 +42,6 @@ export default function GraphView(props) {
 
   useEffect(() => {
     if (workspace.length == 0) return;
-    console.log("test");
 
     setGraphData(graphData => {
       let links = cloneDeep(link);
@@ -135,10 +134,9 @@ export default function GraphView(props) {
 
   function onNodeHover(node) {
     if (node != null) {
-      if (node === _previousNode) return;
+      if (node.tooltip != null) return;
       if (node.group_id == null) return;
       nodeGenerateTooltip(node);
-      _previousNode = node;
     }
   }
 
