@@ -15,7 +15,7 @@ export default function WorkspaceList() {
     const setGroupData = useSetRecoilState(groupData);
     
     const changeWorkspace = async (workspace) => {
-        if (currentWorkspace == workspace.title) return;
+        if (currentWorkspace.title == workspace.title) return;
         setCurrentWorkspace(workspace);
 
         try {
