@@ -1,85 +1,29 @@
 import styled from "styled-components";
-import axios from "axios";
 
-import { useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
 import { Popup } from "../view";
 
-import config from "../../utils/config.json";
-import def from "./SignupDef.json";
-
-export default function SignupForm() {
-    const [name, setName] = useState();
-    const [id, setId] = useState();
-    const [pw, setPw] = useState();
-    const [pwVerify, setPwVerify] = useState();
-    const [email, setEmail] = useState();
-
-    const [msg, setMsg] = useState();
-    const [loading, setLoading] = useState(false);
-    const [modal, setModal] = useState(false);
-
-    const navigate = useNavigate();
-
-    useEffect(() => {
-        if (msg) {
-            setModal(true);
-            setTimeout(() => {
-                setMsg("");
-                setLoading(false);
-            }, 1500);
-        }
-    }, [msg]);
-
-    const cancel = () => {
-        navigate("/");
-    }
-
-    const signup = (ele) => {
-        ele.preventDefault();
-        if (!name) return setMsg(def.ERROR.VALUE_NULL_NAME);
-        else if (!id) return setMsg(def.ERROR.VALUE_NULL_ID);          
-        else if (!pw) return setMsg(def.ERROR.VALUE_NULL_PASSWD);
-        else if (!pwVerify) return setMsg(def.ERROR.VALUE_NULL_PASSVER);
-        else if (!email) return setMsg(def.ERROR.VALUE_NULL_EMAIL);
-        else if (pw != pwVerify) return setMsg(def.ERROR.INVALID_PASSWD);
-
-        let signupData = {name: name, id: id, pw: pw, email: email};
-        axios.post(config.ip+config.port+'/usr/signup', signupData)
-            .then((res) => {
-                if (res.status == 200) {
-                    alert("가입성공!");
-                    navigate("/");
-                }
-            })
-            .catch(error => {
-                let status = error.response.status;
-                if      (status == 400) setMsg(def.ERROR.INVALID_PASSWD);
-                else if (status == 401) setMsg(def.ERROR.INVALID_ID);
-            })      
-    }
-
+export default function SignupForm(props) {
     return (
         <>
-            <StForm onSubmit={signup}>
+            <StForm onSubmit={props.signup}>
                 <StLabel>User name</StLabel>
-                <StInput onChange={(e)=>setName(e.target.value)}/>
+                <StInput onChange={props.onChange.name}/>
                 <StLabel>User ID</StLabel>
-                <StInput onChange={(e)=>setId(e.target.value)}/>
+                <StInput onChange={props.onChange.id}/>
                 <StLabel>Password</StLabel>
-                <StInput type="password" onChange={(e)=>setPw(e.target.value)}/>
+                <StInput type="password" onChange={props.onChange.pw}/>
                 <StLabel>Password check</StLabel>
-                <StInput type="password" onChange={(e)=>setPwVerify(e.target.value)}/>
+                <StInput type="password" onChange={props.onChange.pwVerify}/>
                 <StLabel>User Emain</StLabel>
-                <StInput onChange={(e)=>setEmail(e.target.value)}/>
+                <StInput onChange={props.onChange.email}/>
 
-                <StButton type="submit" disabled={loading}>회원가입</StButton>
+                <StButton type="submit" disabled={props.data.loading}>회원가입</StButton>
             </StForm>
 
             <Popup 
-                isOpen={modal}
-                onRequestClose={()=>setModal(false)}
-                content={msg}
+                isOpen={props.data.modal}
+                onRequestClose={props.onChange.popup}
+                content={props.data.message}
             />
         </>
     );

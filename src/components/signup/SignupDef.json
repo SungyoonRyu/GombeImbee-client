@@ -7,6 +7,8 @@
         "VALUE_NULL_PASSVER": "비밀번호 확인을 입력하세요.",
         "VALUE_NULL_EMAIL": "이메일을 입력하세요.",
         "INVALID_PASSWD": "비밀번호와 비밀번호 확인이 일치하지 않습니다.",
-        "INVALID_ID": "이미 존재하는 Id 입니다."
+        "INVALID_ID": "이미 존재하는 Id 입니다.",
+        "NO_CONNECTION": "서버와 접속이 원활하지 않습니다.",
+        "UNKNOWN": "UNKNOWN_ERROR"
     }
 }

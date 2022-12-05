@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-import { SignupForm } from "../components/signup";
+import { SignupSeq } from "../components/signup";
 import logo from "../asset/logo/nodeBook_Logo_white.png"
 
 export default function Signup() {
@@ -11,7 +11,7 @@ export default function Signup() {
                 <Link to='/'>
                     <StLogo src={logo}/>
                 </Link>
-                <SignupForm />
+                <SignupSeq />
             </StSignupBox>
         </StSignupCont>
     );

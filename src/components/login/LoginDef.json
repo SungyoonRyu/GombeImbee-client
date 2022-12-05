@@ -5,6 +5,7 @@
         "VALUE_NULL_PASSWD": "비밀번호를 입력하세요.",
         "INVALID_ID": "존재하지 않는 Id 입니다.",
         "INVALID_PASSWD": "비밀번호가 다릅니다.",
+        "NO_CONNECTION": "서버와 접속이 원활하지 않습니다.",
         "UNKNOWN": "UNKNOWN_ERROR"
     }
 }

@@ -1,11 +1,14 @@
 import { ForceGraph2D } from "react-force-graph";
-import ReactDOMServer from 'react-dom/server';
-import { useState, useCallback, useRef, useEffect } from "react";
 import cloneDeep from 'lodash/cloneDeep';
 
-import Tooltip from "./Tooltip";
+import ReactDOMServer from 'react-dom/server';
+import { useState, useCallback, useRef, useEffect } from "react";
+
 import { useRecoilValue } from "recoil";
 import { bookmarkData } from "../../utils/atom";
+import useWindowDimensions from "../../utils/windowDimensions";
+
+import Tooltip from "./Tooltip";
 
 export default function GraphView(props) {
   var {style = {
@@ -21,10 +24,12 @@ export default function GraphView(props) {
   var _currentGroup;
 
   var {backgroundColor = 'rgba(200, 200, 200, 1.0)'} = props;
+  const graphRef = useRef();
   const [scale, setScale] = useState(0.0);
+  const {height, width} = useWindowDimensions();
+
   const [nodeData, setNodeData] = useState({nodes: [], links: []});
   const originalData = useRecoilValue(bookmarkData);
-  const graphRef = useRef();
 
   useEffect(() => {
     setNodeData(cloneDeep(originalData));
@@ -110,8 +115,8 @@ export default function GraphView(props) {
           nodeLabel="tooltip"
           nodeAutoColorBy="group"
           graphData={nodeData}
-          width={props.size.width}
-          height={props.size.height}
+          width={width-281}
+          height={height-51}
           backgroundColor={backgroundColor}
           onNodeHover={onNodeHover}
           onNodeClick={onNodeClick}

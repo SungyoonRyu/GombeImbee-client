@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-import { LoginForm } from "../components/login";
+import { LoginSeq } from "../components/login";
 import logo from "../asset/logo/nodeBook_Logo_white.png"
 
 export default function Login() {
@@ -11,7 +11,7 @@ export default function Login() {
                 <Link to='/'>
                     <StLogo src={logo} alt='home'/>
                 </Link>
-                <LoginForm />
+                <LoginSeq />
             </StLoginBox>
         </StLoginCont>
     );
