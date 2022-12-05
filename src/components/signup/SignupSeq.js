@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import signupReq from "../request/SignupReq";
 import SignupForm from "./SignupForm";
 
-export default function Signup() {
+export default function SignupSeq() {
     const [loading, setLoading] = useState(false);
     const [modal, setModal] = useState(false);
     const [msg, setMsg] = useState();

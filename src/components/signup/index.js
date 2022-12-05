@@ -1,1 +1,1 @@
-export { default as SignupSeq } from "./Signup";
+export { default as SignupSeq } from "./SignupSeq";

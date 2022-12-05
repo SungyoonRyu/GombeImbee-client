@@ -8,7 +8,7 @@ import { groupReq, linkReq, loginReq, nodeReq, workspaceReq } from "../request";
 
 import LoginForm from "./LoginForm";
 
-export default function Login() {
+export default function LoginSeq() {
     const [id, setId] = useState();
     const [pw, setPw] = useState();
 
