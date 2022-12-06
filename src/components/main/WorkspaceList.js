@@ -45,29 +45,28 @@ export default function WorkspaceList() {
         catch (error) { console.log(error); }
     }
 
-    const createWorkspace = async () => {
-        // if (createState == 'input') {
-        //     // if (createInput.length == 0 || createInput.includes(' ')) {
-        //     //     setCreateMsg("Workspace 이름에는 공백이 포함될 수 없습니다.");
-        //     //     setCreateState('failure');
-        //     //     return;
-        //     // }
-        // }
-        // else {
-        //     setCreateInput("");
-        //     setCreateState('closed');
-        //     return;
-        // }
+    const createWorkspace = async (event) => {
+        event.preventDefault();
+        if (createState == 'input') {
+            if (createInput.length == 0 || createInput.includes(' ')) {
+                setCreateMsg("Workspace 이름에는 공백이 포함될 수 없습니다.");
+                setCreateState('failure');
+                return;
+            }
+        }
+        else {
+            setCreateInput("");
+            setCreateState('closed');
+            return;
+        }
 
         try {
             let server = config.ip + config.port;
-            var params = {id: userState.id, title: createInput};
+            var params = {title: createInput, own_user_id: userState.id};
             const addRes = await axios.post(server+'/workspace/add', params);
-            console.log("eidjialwjadelfje");
-            
             if (addRes.status == 200) {
+                console.log("test");
                 const workspaceRes = await axios.get(server+'/workspace/get_list', {params: params});
-                
                 if (workspaceRes.status == 200) {
                     setWorkspaceData(workspaceRes.data);
                     setCurrentWorkspace(workspaceRes.data.find((ele)=>ele.title == createInput));
