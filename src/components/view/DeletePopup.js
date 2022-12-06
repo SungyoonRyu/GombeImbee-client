@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import ReactModal from 'react-modal';
 
 import styled from "styled-components";
@@ -40,9 +39,9 @@ export default function CreatePopup(props) {
     const inputForm = () => {
         return (
             <StForm>
-                <StLabel>{props.strings.title}</StLabel>
-                <StLabel>{props.strings.type}: {props.data.name}</StLabel>
-                <StLabel>{props.strings.label}</StLabel>
+                <StLabel>{props.string.title}</StLabel>
+                <StLabel>{props.string.type}: {props.data.name}</StLabel>
+                <StLabel>{props.string.label}</StLabel>
                 <StButton onClick={e=>props.onChange.click(e, true)}>
                     삭제
                 </StButton>
@@ -56,7 +55,7 @@ export default function CreatePopup(props) {
     const completeForm = () => {
         return (
             <StForm>
-                <StLabel>{props.strings.title}</StLabel>
+                <StLabel>{props.string.title}</StLabel>
                 <StLabel>{props.string.type}가 삭제되었습니다.</StLabel>    
                 <StButton onClick={props.onChange.click}>
                     확인

@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import ReactModal from 'react-modal';
 
 import styled from "styled-components";
@@ -41,8 +40,8 @@ export default function CreatePopup(props) {
     const inputForm = () => {
         return (
             <StForm>
-                <StLabel>{props.strings.title}</StLabel>
-                <StLabel>{props.strings.label}</StLabel>
+                <StLabel>{props.string.title}</StLabel>
+                <StLabel>{props.string.label}</StLabel>
                 <StInput onChange={props.onChange.input}/>
                 <StButton onClick={e=>props.onChange.click(e, true)}>
                     저장
@@ -57,7 +56,7 @@ export default function CreatePopup(props) {
     const completeForm = () => {
         return (
             <StForm>
-                <StLabel>{props.strings.title}</StLabel>
+                <StLabel>{props.string.title}</StLabel>
                 <StLabel>{props.data.name}가 추가되었습니다.</StLabel>    
                 <StButton onClick={props.onChange.click}>
                     확인
@@ -69,8 +68,8 @@ export default function CreatePopup(props) {
     const failedForm = () => {
         return (
             <StForm>
-                <StLabel>{props.strings.title}</StLabel>
-                <StLabel>{props.strings.type}을 추가하지 못했습니다.</StLabel>
+                <StLabel>{props.string.title}</StLabel>
+                <StLabel>{props.string.type}을 추가하지 못했습니다.</StLabel>
                 <StLabel>{props.data.error}</StLabel>
                 <StButton onClick={props.onChange.click}>
                     확인
