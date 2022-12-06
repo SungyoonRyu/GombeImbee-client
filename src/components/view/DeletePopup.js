@@ -34,7 +34,6 @@ export default function CreatePopup(props) {
         switch (props.data.state) {
             case 'input': return inputForm();
             case 'completed': return completeForm();
-            case 'failure': return failedForm();
         }
     }
 
@@ -42,10 +41,13 @@ export default function CreatePopup(props) {
         return (
             <StForm>
                 <StLabel>{props.strings.title}</StLabel>
+                <StLabel>{props.strings.type}: {props.data.name}</StLabel>
                 <StLabel>{props.strings.label}</StLabel>
-                <StInput onChange={props.onChange.input}/>
-                <StButton onClick={props.onChange.click}>
-                    저장
+                <StButton onClick={e=>props.onChange.click(e, true)}>
+                    삭제
+                </StButton>
+                <StButton onClick={e=>props.onChange.click(e, false)}>
+                    취소
                 </StButton>
             </StForm> 
         );
@@ -55,24 +57,11 @@ export default function CreatePopup(props) {
         return (
             <StForm>
                 <StLabel>{props.strings.title}</StLabel>
-                <StLabel>{props.data.name}가 추가되었습니다.</StLabel>    
+                <StLabel>{props.string.type}가 삭제되었습니다.</StLabel>    
                 <StButton onClick={props.onChange.click}>
                     확인
                 </StButton>
             </StForm> 
-        );
-    }
-
-    const failedForm = () => {
-        return (
-            <StForm>
-                <StLabel>{props.strings.title}</StLabel>
-                <StLabel>{props.strings.type}을 추가하지 못했습니다.</StLabel>
-                <StLabel>{props.data.error}</StLabel>
-                <StButton onClick={props.onChange.click}>
-                    확인
-                </StButton>
-            </StForm>
         );
     }
 

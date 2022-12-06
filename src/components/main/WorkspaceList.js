@@ -8,7 +8,7 @@ import { config } from "../../definitions";
 import { useRecoilValue, useSetRecoilState, useRecoilState } from "recoil";
 import { nodeData, linkData, groupData, workspaceData, workspaceState, isLoginState } from "../../utils/atom";
 
-import { CreatePopup } from "../view";
+import { CreatePopup, DeletePopup } from "../view";
 
 import linkdata from "../request/link.json";
 
@@ -23,7 +23,10 @@ export default function WorkspaceList() {
 
     const [createState, setCreateState] = useState('closed');
     const [createInput, setCreateInput] = useState("");
-    const [createMsg, setCreateMsg] = useState("");
+    const [createError, setCreateError] = useState("");
+
+    const [deleteButton, showDeleteButton] = useState(-1);
+    const [deleteState, setDeleteState] = useState('closed');
     
     const changeWorkspace = async (workspace) => {
         if (currentWorkspace.title == workspace.title) return;
@@ -46,36 +49,68 @@ export default function WorkspaceList() {
     }
 
     const createWorkspace = async (event) => {
-        event.preventDefault();
-        if (createState == 'input') {
-            if (createInput.length == 0 || createInput.includes(' ')) {
-                setCreateMsg("Workspace 이름에는 공백이 포함될 수 없습니다.");
-                setCreateState('failure');
-                return;
-            }
-        }
-        else {
-            setCreateInput("");
-            setCreateState('closed');
-            return;
-        }
-
         try {
             let server = config.ip + config.port;
             var params = {title: createInput, own_user_id: userState.id};
             const addRes = await axios.post(server+'/workspace/add', params);
             if (addRes.status == 200) {
-                console.log("test");
+                params = {}
                 const workspaceRes = await axios.get(server+'/workspace/get_list', {params: params});
                 if (workspaceRes.status == 200) {
                     setWorkspaceData(workspaceRes.data);
                     setCurrentWorkspace(workspaceRes.data.find((ele)=>ele.title == createInput));
-                    
                 }
                 setCreateState('completed');
             }
         }
         catch (error) { console.log(error); }
+    }
+
+    const deleteWorkspace = async (event) => {
+        setCreateState('completed');
+
+        // try {
+        //     let server = config.ip + config.port;
+        //     var params = {title: createInput, own_user_id: userState.id};
+        //     const addRes = await axios.post(server+'/workspace/del', params);
+        //     if (addRes.status == 200) {
+        //         params = {}
+        //         const workspaceRes = await axios.get(server+'/workspace/get_list', {params: params});
+        //         if (workspaceRes.status == 200) {
+        //             setWorkspaceData(workspaceRes.data);
+        //             changeWorkspace();
+        //         }
+        //         setCreateState('completed');
+        //     }
+        // }
+        // catch (error) { console.log(error); }
+    }
+
+    const createHandle = (event) => {
+        event.preventDefault();
+        if (createState == 'input') {
+            if (createInput.length == 0 || createInput.includes(' ')) {
+                setCreateError("Workspace 이름에는 공백이 포함될 수 없습니다.");
+                setCreateState('failure');
+                createWorkspace(event);
+            }
+        }
+        else if (createState == 'completed') {
+            setCreateInput("");
+            setCreateState('closed');
+        }
+        else if (createState == 'failure') {
+            setCreateInput("");
+            setCreateState('input');
+        }
+    }
+
+    const deleteHandle = (event, next) => {
+        event.preventDefault();
+        if (deleteState == 'input') {
+            if (next) deleteWorkspace(event);
+            setDeleteState('closed');
+        }
     }
 
     const createInputChange = (event) => {
@@ -90,13 +125,28 @@ export default function WorkspaceList() {
 
     const createData = {
         name: createInput,
-        createMsg: createMsg,
-        createState: createState
+        error: createError,
+        state: createState
     }
 
     const createChange = {
-        click: createWorkspace,
+        click: createHandle,
         input: createInputChange
+    }  
+
+    const deletePopupStr = {
+        title: "Workspace 삭제하기",
+        label: "해당 Workspace를 삭제하시겠습니까?",
+        type: "workspace"
+    }
+
+    const deleteData = {
+        name: currentWorkspace.title,
+        state: deleteState
+    }
+
+    const deleteChange = {
+        click: deleteHandle
     }
 
     return (
@@ -106,16 +156,23 @@ export default function WorkspaceList() {
                     <StWSRow 
                         key={workspace.id} 
                         onClick={e=>changeWorkspace(workspace)}
+                        onMouseEnter={e=>showDeleteButton(workspace.id)}
+                        onMouseLeave={e=>showDeleteButton(-1)}
                         style={{backgroundColor: currentWorkspace.id == workspace.id ? '#609BF9' : null}}
                     >
                         {workspace.title}
+                        { deleteButton == workspace.id ? 
+                            <StDeleteButton onClick={()=>setDeleteState('input')}>
+                                Delete
+                            </StDeleteButton>
+                        : null }
                     </StWSRow>
                 );
             })}
 
             <StButton onClick={()=>setCreateState('input')}>
                 New
-            </StButton>
+            </StButton> 
 
             <CreatePopup
                 isOpen={createState != 'closed'}
@@ -123,9 +180,20 @@ export default function WorkspaceList() {
                 onChange={createChange}
                 strings={createPopupStr}
             />
+
+            <DeletePopup 
+                isOpen={deleteState != 'closed'}
+                data={deleteData}
+                onChange={deleteChange}
+                strings={deletePopupStr}
+            />
         </StWrapper>
     );
 }
+
+const StDeleteButton = styled.button`
+
+`;
 
 const StWrapper = styled.div`
     margin: 40px 0px;
