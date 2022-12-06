@@ -7,7 +7,6 @@ export default function UserPofile() {
     const userInfo = useRecoilValue(isLoginState);
     return (
         <StWrapper>
-            user profile
             <StUserImg>user.img</StUserImg>
             <StUserName>{userInfo.id}</StUserName>
         </StWrapper>
@@ -16,7 +15,6 @@ export default function UserPofile() {
 
 const StWrapper = styled.div`
     margin: 20px 0px 40px;
-    padding: 20px 0px;
 `;
 
 const StUserImg = styled.div`

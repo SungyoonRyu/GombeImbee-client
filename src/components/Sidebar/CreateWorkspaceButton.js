@@ -18,6 +18,7 @@ export default function CreateWorkspaceButton(props) {
     const [createState, setCreateState] = useState('closed');
     const [createInput, setCreateInput] = useState("");
     const [createError, setCreateError] = useState("");
+    const [createStyle, setCreateStyle] = useState(styleInput);
 
     const createWorkspace = async (event) => {
         try {
@@ -31,6 +32,7 @@ export default function CreateWorkspaceButton(props) {
                     setWorkspaceData(workspaceRes.data);
                     setCurrentWorkspace(workspaceRes.data.find((ele)=>ele.title == createInput));
                     setCreateState('completed');
+                    setCreateStyle(styleCompleted);
                     return;
                 }
                 else error = workspaceRes.status;
@@ -38,6 +40,7 @@ export default function CreateWorkspaceButton(props) {
             else error = addRes.status;
             setCreateError('ERROR: ' + error);
             setCreateState('failure');
+            setCreateStyle(styleFailure);
         }
         catch (error) { console.log(error); }
     }
@@ -48,21 +51,25 @@ export default function CreateWorkspaceButton(props) {
             if (!next) {
                 setCreateInput("");
                 setCreateState('closed');
+                setCreateStyle(styleInput);
                 return;
             }
             if (createInput.length == 0 || createInput.includes(' ')) {
                 setCreateError("Workspace 이름에는 공백이 포함될 수 없습니다.");
                 setCreateState('failure');
+                setCreateStyle(styleFailure);
             }
             else createWorkspace(event);
         }
         else if (createState == 'completed') {
             setCreateInput("");
             setCreateState('closed');
+            setCreateStyle(styleInput);
         }
         else if (createState == 'failure') {
             setCreateInput("");
             setCreateState('input');
+            setCreateStyle(styleInput);
         }
     }
 
@@ -90,13 +97,14 @@ export default function CreateWorkspaceButton(props) {
     return (
         <>
             <StNewButton onClick={()=>setCreateState('input')}>
-                + New Workspace
+                +New Workspace
             </StNewButton> 
             <CreatePopup
                 isOpen={createState != 'closed'}
                 data={createData}
                 onChange={createChange}
                 string={createPopupStr}
+                style={createStyle}
             />
         </>
     );
@@ -116,3 +124,84 @@ const StNewButton = styled.button`
         color: #ffffff;
     }
 `;
+
+let styleInput = {
+    overlay: {
+        position: "fixed",
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        backgroundColor: "rgba(255, 255, 255, 0.45)",
+        zIndex: 10,
+    },
+        content: {
+        display: "flex",
+        alignItems: "initial",
+        justifyContent: "flex-start",
+        background: "#EAEAEA",
+        overflow: "auto",
+        top: "25vh",
+        left: "29vw",
+        right: "29vw",
+        bottom: "35vh",
+        WebkitOverflowScrolling: "touch",
+        borderRadius: "14px",
+        outline: "none",
+        zIndex: 10
+    }
+}
+
+let styleCompleted = {
+    overlay: {
+    position: "fixed",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: "rgba(255, 255, 255, 0.45)",
+    zIndex: 10,
+    },
+    content: {
+    display: "flex",
+    alignItems: "initial",
+    justifyContent: "flex-start",
+    background: "#EAEAEA",
+    overflow: "auto",
+    top: "28vh",
+    left: "32vw",
+    right: "32vw",
+    bottom: "37vh",
+    WebkitOverflowScrolling: "touch",
+    borderRadius: "14px",
+        outline: "none",
+        zIndex: 10
+    }
+}
+
+let styleFailure = {
+    overlay: {
+        position: "fixed",
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        backgroundColor: "rgba(255, 255, 255, 0.45)",
+        zIndex: 10,
+    },
+    content: {
+        display: "flex",
+        alignItems: "initial",
+        justifyContent: "flex-start",
+        background: "#EAEAEA",
+        overflow: "auto",
+        top: "25vh",
+        left: "30vw",
+        right: "30vw",
+        bottom: "35vh",
+        WebkitOverflowScrolling: "touch",
+        borderRadius: "14px",
+        outline: "none",
+        zIndex: 10
+    }
+}
