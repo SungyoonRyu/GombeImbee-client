@@ -7,7 +7,7 @@ import ReactModal from "react-modal";
 import { useState } from "react";
 
 import { useRecoilValue } from "recoil";
-import { workspaceState } from "../../utils/atom";
+import { workspaceState, isLoginState } from "../../utils/atom";
 
 import { config } from "../../definitions";
 
@@ -39,29 +39,37 @@ export default function EditMember(props) {
     }} = props;
 
     const currentWorkspace = useRecoilValue(workspaceState);
+    const userState = useRecoilValue(isLoginState);
 
     const [invite, setInvite] = useState(false);
-    const [loading, setLoading] = useState(false);
     const [member, setMember] = useState([]);
 
     const getMember = async (event) => {
         event.preventDefault();
-
         try {
             let server = config.ip + config.port;
             let params = {workspace_id: currentWorkspace.id}
-            const res = await axios.post(server+'/workspace/workspace_member', {params});
+            const res = await axios.post(server+'/workspace/workspace_member', params);
             if (res.status == 200) setMember(res.data);
+        }
+        catch (error) { console.log(error); }
+    }
+
+    const delMember = async (event, userId) => {
+        event.preventDefault();
+        try {
+            let server = config.ip + config.port;
+            let params = {workspace_id: currentWorkspace.id, user_id: userId}
+            const res = await axios.post(server+'/workspace/del_workspace_member', params);
+            if (res.status == 200) getMember(event);
+            else console.log(res.status);
         }
         catch (error) { console.log(error); }
     }
 
     return (
         <>
-            <StButton
-                onClick={(e)=>{setInvite(true); getMember(e);}}
-                disabled={loading}
-            >
+            <StButton onClick={(e)=>{setInvite(true); getMember(e);}}>
                 맴버 수정
             </StButton>
 
@@ -73,7 +81,12 @@ export default function EditMember(props) {
                 <StButton onClick={()=>{setInvite(false)}}>X</StButton>
                 <StLabel>Workspace: {currentWorkspace.title}</StLabel>
                 { member.map(ele=>{
-                    return (ele.name);
+                    if (ele.id == userState.id) return null;
+                    return (
+                        <StButton key={ele.id} onClick={e=>delMember(e, ele.id) }>
+                            {ele.name}
+                        </StButton>
+                    );
                 })}
                 <StLabel>맴버를 클릭하여 삭제할 수 있습니다.</StLabel>
             </ReactModal>

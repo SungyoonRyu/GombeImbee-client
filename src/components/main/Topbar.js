@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { EditMember } from "../topbar";
+import { AddMember, EditMember } from "../topbar";
 import { LogoutSeq } from "../login";
 
 export default function Topbar(props) {
@@ -8,9 +8,8 @@ export default function Topbar(props) {
 
     return (
         <>
-            <EditMember
-
-            />
+            <AddMember/>
+            <EditMember/>
             <StChangeButton onClick={props.changeView}> change view </StChangeButton>
             <LogoutSeq />
         </>
