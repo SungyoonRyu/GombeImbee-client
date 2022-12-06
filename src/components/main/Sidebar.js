@@ -1,6 +1,6 @@
 import styled from "styled-components"
 import UserPofile from "./UserProfile";
-import { WorkspaceList } from "../Sidebar";
+import { WorkspaceList } from "../sidebar";
 
 export default function Sidebar() {
     return (
