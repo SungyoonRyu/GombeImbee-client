@@ -89,9 +89,9 @@ export default function CreateWorkspaceButton(props) {
 
     return (
         <>
-            <StButton onClick={()=>setCreateState('input')}>
-                New
-            </StButton> 
+            <StNewButton onClick={()=>setCreateState('input')}>
+                + New Worknpace
+            </StNewButton> 
             <CreatePopup
                 isOpen={createState != 'closed'}
                 data={createData}
@@ -102,14 +102,17 @@ export default function CreateWorkspaceButton(props) {
     );
 };
 
-const StButton = styled.button`
+const StNewButton = styled.button`
     display: block;
-    margin: 60px auto;
+    margin: 15px auto;
     height: 50px;
-    width: 110px;
-    background-color: #2F76E6;
+    width: 250px;
+    background-color: #D3D3D3;
     border-style: none;
     font-size: 20px;
     font-weight: bold;
-    color: #ffffff;
+    color: #505050;
+    &:hover {
+        color: #ffffff;
+    }
 `;
