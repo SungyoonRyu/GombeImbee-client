@@ -90,7 +90,7 @@ export default function CreateWorkspaceButton(props) {
     return (
         <>
             <StNewButton onClick={()=>setCreateState('input')}>
-                + New Worknpace
+                + New Workspace
             </StNewButton> 
             <CreatePopup
                 isOpen={createState != 'closed'}
