@@ -27,6 +27,12 @@ export default function ListView(props) {
                   );
                 }
               )}
+
+              <StBookNode onClick={()=>props.addBookmark(group.id)}>
+                <p>
+                  + New Bookmark 
+                </p>
+              </StBookNode>
             </StGroup>
           );
         })}

@@ -1,6 +1,7 @@
 import { useRecoilValue } from "recoil";
 import styled, { keyframes } from "styled-components"
 import { workspaceState } from "../../utils/atom";
+import { DeleteBookmark } from "../Board";
 
 export default function InfoView(props) {
     const currentWorkspace = useRecoilValue(workspaceState);
@@ -21,11 +22,13 @@ export default function InfoView(props) {
                 Tag: {props.node.tag}
             </div>
             <div>
-                Info: {props.node.info}
+                Info: {props.node.description}
             </div>
             <div>
                 분류: {currentWorkspace.title+' > '+props.node.fgroup_title}
             </div>
+
+            <DeleteBookmark node={props.node}/>
         </StInform>
     );
 }

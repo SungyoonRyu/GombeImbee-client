@@ -1,29 +1,33 @@
 import { useState } from "react";
 import styled, { keyframes } from "styled-components"
+import AddBookmark from "../Board/AddBoobmark";
 
 import { GraphView, InfoView, ListView } from "../view";
-
 import Topbar from "./Topbar";
 
 export default function Board() {
     const [viewState, setView] = useState(false);
     const [leftslide, setleftslide] = useState(false);
     const [current, setCurrent] = useState(null);
-
-    const changeView = (event) => {
-        setView(!viewState);
-    }
+    
+    const [addState, setAddState] = useState('closed');
+    const [group_id, setGroupId] = useState('');
 
     const clickHandle = (node) => {
         setleftslide(true);
         setCurrent(node);
     }
 
+    const addBookmark = (group_id) => {
+        setAddState('input');
+        setGroupId(group_id);
+    }
+
     return (
         <StBoard>
             <StBoardHeader>
                 <Topbar
-                    changeView={changeView}
+                    changeView={()=>setView(!viewState)}
                 />
             </StBoardHeader>
 
@@ -31,10 +35,12 @@ export default function Board() {
                 <ListView 
                     activate={viewState}
                     clickHandle={clickHandle}
+                    addBookmark={addBookmark}
                 />
                 <GraphView
                     activate={!viewState}
                     clickHandle={clickHandle}
+                    addBookmark={addBookmark}
                     backgroundColor='rgba(255,255,255,1.0)'
                 />
             </StViewDiv>
@@ -42,6 +48,12 @@ export default function Board() {
             <InfoView
                 slideAct={leftslide}
                 node={current}
+            />
+
+            <AddBookmark 
+                group_id={group_id}
+                addState={addState}
+                setAddState={setAddState}
             />
         </StBoard>
     );

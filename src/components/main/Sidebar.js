@@ -1,11 +1,13 @@
 import styled from "styled-components"
 import UserPofile from "./UserProfile";
 import { WorkspaceList } from "../Sidebar";
+import { LogoutSeq } from "../login";
 
 export default function Sidebar() {
     return (
         <StSidebar>
             <UserPofile />
+            <LogoutSeq />
             <WorkspaceList />
         </StSidebar>
     );
