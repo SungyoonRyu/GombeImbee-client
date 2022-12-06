@@ -21,16 +21,17 @@ export default function WorkspaceList() {
         setCurrentWorkspace(workspace);
 
         try {
+            let server = config.ip + config.port;
             var params = {id: workspace.id}
-            const groupRes = await axios.get(config.ip+config.port+'/group/get_list', {params: params});
+            const groupRes = await axios.get(server+'/group/get_list', {params: params});
             setGroupData(groupRes.data);
 
             params = {id: workspace.id}
-            const nodeRes = await axios.get(config.ip+config.port+'/workspace/get_node', {params: params});
+            const nodeRes = await axios.get(server+'/workspace/get_node', {params: params});
             setNodeData(nodeRes.data);
 
-            if (workspace.title == "컴퓨터공학")
-                setLinkData(linkdata);
+            if (workspace.title == "컴퓨터공학") setLinkData(linkdata);
+            else setLinkData([]);
         }
         catch (error) { console.log(error); }
     }
@@ -39,7 +40,11 @@ export default function WorkspaceList() {
         <StWrapper>
             { workspaces.map(workspace => {
                 return (
-                    <StWSRow onClick={e=>changeWorkspace(workspace)}>
+                    <StWSRow 
+                        key={workspace.id} 
+                        onClick={e=>changeWorkspace(workspace)}
+                        dis
+                    >
                         {workspace.title}
                     </StWSRow>
                 );

@@ -1,10 +1,13 @@
+import axios from "axios";
+
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-import signupReq from "../request/SignupReq";
 import SignupForm from "./SignupForm";
+import { signupDef, config } from "../../definitions";
 
 export default function SignupSeq() {
+    const [status, setStatus] = useState(false);
     const [loading, setLoading] = useState(false);
     const [modal, setModal] = useState(false);
     const [msg, setMsg] = useState();
@@ -27,11 +30,31 @@ export default function SignupSeq() {
         }
     }, [msg]);
 
-    const signup = (event) => {
+    const signup = async (event) => {
+        event.preventDefault();
         setLoading(true);
-        let result = signupReq(event, name, id, pw, pwVerify, email);
-        if (result.state) navigate("/");
-        else setMsg(result.error);
+        if (!name) setMsg(signupDef.ERROR.VALUE_NULL_NAME);
+        else if (!id) setMsg(signupDef.ERROR.VALUE_NULL_ID);          
+        else if (!pw) setMsg(signupDef.ERROR.VALUE_NULL_PASSWD);
+        else if (!pwVerify) setMsg(signupDef.ERROR.VALUE_NULL_PASSVER);
+        else if (!email) setMsg(signupDef.ERROR.VALUE_NULL_EMAIL);
+        else if (pw != pwVerify) setMsg(signupDef.ERROR.INVALID_PASSWD);
+
+        try {
+            let reqData = {name: name, id: id, pw: pw, email: email};
+            const res = await axios.post(config.ip+config.port+'/usr/signup', reqData)
+            if (res.status == 200) {
+                setMsg("회원가입 성공");
+                setStatus(true);
+            }
+            else setMsg(signupDef.ERROR.UNKNOWN);
+        }
+        catch (error) {
+            let status = error.response.status;
+            if      (status == 400) setMsg(signupDef.ERROR.INVALID_PASSWD);
+            else if (status == 401) setMsg(signupDef.ERROR.INVALID_ID);
+            else                    setMsg(error.message);
+        }
     }
 
     const onChangeName = (event) => {
@@ -56,6 +79,9 @@ export default function SignupSeq() {
 
     const onClosePopup = (event) => {
         setModal(false);
+        if (status) {
+            navigate("/");
+        }
     }
 
     const onChange = {
@@ -69,7 +95,8 @@ export default function SignupSeq() {
 
     const data = {
         modal: modal,
-        message: msg
+        message: msg,
+        loading: loading
     }
 
     return (
