@@ -40,7 +40,7 @@ export default function CreatePopup(props) {
     const inputForm = () => {
         return (
             <StForm>
-                <StLabel>{props.string.title}</StLabel>
+                <StTitle>{props.string.title}</StTitle>
                 <StLabel>{props.string.label}</StLabel>
                 <StInput onChange={props.onChange.input}/>
                 <StButton onClick={e=>props.onChange.click(e, true)}>
@@ -56,8 +56,8 @@ export default function CreatePopup(props) {
     const completeForm = () => {
         return (
             <StForm>
-                <StLabel>{props.string.title}</StLabel>
-                <StLabel>{props.data.name}가 추가되었습니다.</StLabel>    
+                <StTitle>{props.string.title}</StTitle>
+                <STNotice>{props.data.name}가 추가되었습니다.</STNotice>    
                 <StButton onClick={props.onChange.click}>
                     확인
                 </StButton>
@@ -68,9 +68,9 @@ export default function CreatePopup(props) {
     const failedForm = () => {
         return (
             <StForm>
-                <StLabel>{props.string.title}</StLabel>
-                <StLabel>{props.string.type}을 추가하지 못했습니다.</StLabel>
-                <StLabel>{props.data.error}</StLabel>
+                <StTitle>{props.string.title}</StTitle>
+                <STNotice>{props.string.type}을 추가하지 못했습니다.</STNotice>
+                <STNotice>{props.data.error}</STNotice>
                 <StButton onClick={props.onChange.click}>
                     확인
                 </StButton>
@@ -93,8 +93,8 @@ export default function CreatePopup(props) {
 ReactModal.setAppElement('#root');
 
 const StButton = styled.button`
-    display: block;
-    margin: 60px auto;
+    display: inline-block;
+    margin: 40px 30px;
     height: 50px;
     width: 110px;
     background-color: #2F76E6;
@@ -105,16 +105,33 @@ const StButton = styled.button`
 `;
 
 const StForm = styled.form`
-    margin: auto;
+    margin: 20px;
     padding: 0px 0px;
-    width: 500px;
+    width: 800px;
+    text-align: center;
+`;
+
+const StTitle = styled.h1`
+    margin: 20px 10px 100px 10px;
+    width: 400px;
+    font-size: 22px;
+    text-align: start;
+    text-weight: bold;
 `;
 
 const StLabel = styled.label`
     display: block;
-    margin: 50px auto 10px;
-    width: 200px;
+    margin: 40px 10px 10px;
+    width: 400px;
     font-size: 18px;
+    text-align: start;
+`;
+
+const STNotice = styled.p`
+    margin: 10px;
+    padding: 10px;
+    font-size: 20px;
+    text-align: start;
 `;
 
 const StInput = styled.input`
@@ -122,6 +139,6 @@ const StInput = styled.input`
     margin: 10px auto;
     height: 40px;
     width: 500px;
-    background-color: #EBECEF;
+    background-color: #FFFFFF;
     border-style: none;
 `;

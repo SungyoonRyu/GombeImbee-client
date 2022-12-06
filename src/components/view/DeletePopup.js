@@ -16,12 +16,12 @@ export default function CreatePopup(props) {
         content: {
             display: "flex",
             justifyContent: "center",
-            background: "#ffffff",
+            background: "#EAEAEA",
             overflow: "auto",
-            top: "20vh",
-            left: "20vw",
-            right: "20vw",
-            bottom: "20vh",
+            top: "30vh",
+            left: "30vw",
+            right: "30vw",
+            bottom: "30vh",
             WebkitOverflowScrolling: "touch",
             borderRadius: "14px",
             outline: "none",
@@ -39,8 +39,8 @@ export default function CreatePopup(props) {
     const inputForm = () => {
         return (
             <StForm>
-                <StLabel>{props.string.title}</StLabel>
-                <StLabel>{props.string.type}: {props.data.name}</StLabel>
+                <StTitle>{props.string.title}</StTitle>
+                <STNotice>{props.string.type}: {props.data.name}</STNotice>
                 <StLabel>{props.string.label}</StLabel>
                 <StButton onClick={e=>props.onChange.click(e, true)}>
                     삭제
@@ -55,7 +55,7 @@ export default function CreatePopup(props) {
     const completeForm = () => {
         return (
             <StForm>
-                <StLabel>{props.string.title}</StLabel>
+                <StTitle>{props.string.title}</StTitle>
                 <StLabel>{props.string.type}가 삭제되었습니다.</StLabel>    
                 <StButton onClick={props.onChange.click}>
                     확인
@@ -79,8 +79,8 @@ export default function CreatePopup(props) {
 ReactModal.setAppElement('#root');
 
 const StButton = styled.button`
-    display: block;
-    margin: 60px auto;
+    display: inline-block;
+    margin: 40px 30px;
     height: 50px;
     width: 110px;
     background-color: #2F76E6;
@@ -91,14 +91,30 @@ const StButton = styled.button`
 `;
 
 const StForm = styled.form`
-    margin: auto;
+    margin: 20px;
     padding: 0px 0px;
-    width: 500px;
+    width: 800px;
+    text-align: center;
+`;
+const StTitle = styled.h1`
+    margin: 20px 10px 100px 10px;
+    width: 400px;
+    font-size: 22px;
+    text-align: start;
+    text-weight: bold;
 `;
 
 const StLabel = styled.label`
     display: block;
-    margin: 50px auto 10px;
-    width: 200px;
+    margin: 40px 10px 10px;
+    width: 400px;
     font-size: 18px;
+    text-align: start;
+`;
+
+const STNotice = styled.p`
+    margin: 10px;
+    padding: 10px;
+    font-size: 20px;
+    text-align: start;
 `;

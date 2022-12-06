@@ -43,11 +43,10 @@ const slideInLeft = keyframes`
 `;
 
 const StInform = styled.div`
-  position: absolute;
+  
   top: 100px;
   left: 100%;
   width: 700px;
   height: 100%;
   background-color: white;
-  animation: ${(props) => (props.slideAct ? slideInLeft : null)} 1s linear forwards;
 `;

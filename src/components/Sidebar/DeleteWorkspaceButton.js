@@ -16,6 +16,7 @@ export default function DeleteWorkspaceButton(props) {
     const currentWorkspace = useRecoilValue(workspaceState);
 
     const [deleteError, setDeleteError] = useState('');
+    const [deleteStyle, setDeleteStyle] = useState(styleInput);
 
     const deleteWorkspace = async (event) => {
         try {
@@ -29,6 +30,7 @@ export default function DeleteWorkspaceButton(props) {
                     props.setDeleteState('completed');
                     setWorkspaceData(workspaceRes.data);
                     props.changeWorkspace(workspaceRes.data[0]);
+                    setDeleteStyle(styleCompleted);
                     return;
                 }
                 else error = workspaceRes.status;
@@ -45,11 +47,16 @@ export default function DeleteWorkspaceButton(props) {
         if (props.deleteState == 'input') {
             if (next) deleteWorkspace(event);
             props.setDeleteState('closed');
+            setDeleteStyle(styleInput);
         }
-        else if (props.deleteState == 'failure')
+        else if (props.deleteState == 'failure') {
             props.setDeleteState('input');
-        else if (props.deleteState == 'completed')
+            setDeleteStyle(styleInput);
+        }
+        else if (props.deleteState == 'completed') {
             props.setDeleteState('closed');
+            setDeleteStyle(styleInput);
+        }
     }
 
     const deletePopupStr = {
@@ -74,7 +81,86 @@ export default function DeleteWorkspaceButton(props) {
                 data={deleteData}
                 onChange={deleteChange}
                 string={deletePopupStr}
+                style={deleteStyle}
             />
         </>
     );
 };
+
+const styleInput = {
+    overlay: {
+        position: "fixed",
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        backgroundColor: "rgba(255, 255, 255, 0.45)",
+        zIndex: 10,
+    },
+    content: {
+        display: "flex",
+        justifyContent: "center",
+        background: "#EAEAEA",
+        overflow: "auto",
+        top: "30vh",
+        left: "30vw",
+        right: "30vw",
+        bottom: "30vh",
+        WebkitOverflowScrolling: "touch",
+        borderRadius: "14px",
+        outline: "none",
+        zIndex: 10
+    }
+}
+
+const styleCompleted = {
+    overlay: {
+        position: "fixed",
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        backgroundColor: "rgba(255, 255, 255, 0.45)",
+        zIndex: 10,
+    },
+    content: {
+        display: "flex",
+        justifyContent: "center",
+        background: "#EAEAEA",
+        overflow: "auto",
+        top: "33vh",
+        left: "32vw",
+        right: "32vw",
+        bottom: "34vh",
+        WebkitOverflowScrolling: "touch",
+        borderRadius: "14px",
+        outline: "none",
+        zIndex: 10
+    }
+}
+
+const styleFailure = {
+    overlay: {
+        position: "fixed",
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        backgroundColor: "rgba(255, 255, 255, 0.45)",
+        zIndex: 10,
+    },
+    content: {
+        display: "flex",
+        justifyContent: "center",
+        background: "#EAEAEA",
+        overflow: "auto",
+        top: "30vh",
+        left: "30vw",
+        right: "30vw",
+        bottom: "30vh",
+        WebkitOverflowScrolling: "touch",
+        borderRadius: "14px",
+        outline: "none",
+        zIndex: 10
+    }
+}

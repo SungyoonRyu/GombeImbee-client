@@ -62,7 +62,7 @@ export default function WorkspaceList() {
                             backgroundColor: currentWorkspace.id == workspace.id ? '#609BF9' : null
                         }}
                     >
-                        {workspace.title}
+                        <StWSname>{workspace.title}</StWSname>
                         { deleteButton == workspace.id ?
                             <StDeleteButton onClick={()=>{setDeleteId(deleteButton); setDeleteState('input')}}>
                                 Delete
@@ -94,18 +94,38 @@ const StWSRow = styled.div`
     margin: 10px 0px;
     padding: 5px 3px 5px;
     height: 40px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    font-size: 22px;
-    vertical-align: middle;
-    text-overflow: ellipsis;
     &:hover{
         background-color: #609BF9;
         color: #ffffff;
     }
 `;
 
-const StDeleteButton = styled.button`
+const StWSname = styled.p`
+    display: inline-block;
+    margin: 0px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 22px;
+    vertical-align: middle;
+    white-space: nowrap;
+    width: 200px;
+    height: 35px;
+`;
 
+const StDeleteButton = styled.button`
+    margin: 0px
+    display: inline-block;
+    margin: 0px 0px 16px;
+    width:40px;
+    height: 21px;
+    font-size: 11px;
+    font-wight: bold;
+    background-color: transparent;
+    border: #474747 solid 0.2px;
+    color: #474747;
+    &:hover {
+        background-color: white;
+        border-color: black;
+        color: black;
+    }
 `;

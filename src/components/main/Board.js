@@ -45,26 +45,31 @@ export default function Board() {
                 />
             </StViewDiv>
 
-            <InfoView
-                slideAct={leftslide}
-                node={current}
-            />
+            <StInform slideAct={leftslide}>
+                <StVirtualBrowser>
+                    <StIframe src={"https://youngest-programming.tistory.com/14"} />
+                </StVirtualBrowser>
 
-            <AddBookmark 
-                group_id={group_id}
-                addState={addState}
-                setAddState={setAddState}
-            />
+                <InfoView
+                    slideAct={leftslide}
+                    node={current}
+                />
+
+                <AddBookmark 
+                    group_id={group_id}
+                    addState={addState}
+                    setAddState={setAddState}
+                />
+            </StInform>
         </StBoard>
     );
 }
 
 const StBoard = styled.div`
 position: fixed;
-transition: margin-left .5s;
 height: 100%;
 width:100%;
-padding: 10px;
+padding: 0px;
 padding-left: 250px;
 background-color: #CDE0FE;
 `;
@@ -86,5 +91,33 @@ const slideLeft = keyframes`
   }
   to {
     width: calc(100% - 700px);
+  }`;
+
+  const slideInLeft = keyframes`
+  from {
+    left: 100%;
   }
+  to {
+    left: calc(100% - 700px);
+  }
+`;
+
+const StInform = styled.div`
+  position: absolute;
+  top: 100px;
+  left: 100%;
+  width: 700px;
+  height: 100%;
+  background-color: white;
+  animation: ${(props) => (props.slideAct ? slideInLeft : null)} 1s linear forwards;
+`;
+
+const StVirtualBrowser = styled.div`
+  width: 690px;
+  height: 650px;
+  overwrap: scroll;
+`;
+const StIframe = styled.iframe`
+  width: 690px;
+  height: 100%;
 `;
