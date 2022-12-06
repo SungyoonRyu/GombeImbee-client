@@ -10,8 +10,10 @@ export default function Board() {
 
     return (
         <StBoard>
-            <button onClick={()=>setView(!viewState)}> change view </button>
-            <LogoutSeq />
+            <StBoardHeader>
+                <StChangeButton onClick={()=>setView(!viewState)}> change view </StChangeButton>
+                <LogoutSeq />
+            </StBoardHeader>
 
             <ListView 
                 activate={viewState}
@@ -32,4 +34,18 @@ width:100%;
 padding: 10px;
 padding-left: 250px;
 background-color: #CDE0FE;
+`;
+
+const StChangeButton = styled.div`
+    height: 50px;
+    width: 100px;
+    background-color: #7AC5CA;
+    font-family: sans-serif;
+    &:hover {
+        background-color: #6699FF;
+    }
+`;
+
+const StBoardHeader = styled.div`
+    height: 100px;
 `;
