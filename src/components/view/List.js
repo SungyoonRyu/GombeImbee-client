@@ -18,8 +18,8 @@ export default function ListView(props) {
               {nodes.filter(node => node.group_id === group.id)
                 .map((node) => {
                   return (
-                    <StBookNode key={node.id} onClick={()=>props.setOutAct(true)}> 
-                      <StBookName> 
+                    <StBookNode key={node.id} onClick={()=>props.clickHandle(node)}> 
+                      <StBookName>
                         {node.title} 
                       </StBookName>
                       <p style={{fontFamily: 'sans-serif'}}>{node.url}</p>

@@ -1,16 +1,22 @@
 import { useState } from "react";
 import styled, { keyframes } from "styled-components"
 
-import { GraphView, ListView } from "../view";
+import { GraphView, InfoView, ListView } from "../view";
 
 import Topbar from "./Topbar";
 
 export default function Board() {
     const [viewState, setView] = useState(false);
     const [leftslide, setleftslide] = useState(false);
+    const [current, setCurrent] = useState(null);
 
     const changeView = (event) => {
         setView(!viewState);
+    }
+
+    const clickHandle = (node) => {
+        setleftslide(true);
+        setCurrent(node);
     }
 
     return (
@@ -24,35 +30,22 @@ export default function Board() {
             <StViewDiv slideAct={leftslide}>
                 <ListView 
                     activate={viewState}
-                    setOutAct={setleftslide}
+                    clickHandle={clickHandle}
                 />
                 <GraphView
                     activate={!viewState}
+                    clickHandle={clickHandle}
                     backgroundColor='rgba(255,255,255,1.0)'
                 />
             </StViewDiv>
-            <StInform slideAct={leftslide}>test</StInform>
+
+            <InfoView
+                slideAct={leftslide}
+                node={current}
+            />
         </StBoard>
     );
 }
-
-const slideLeft = keyframes`
-  from {
-    width: 100%;
-  }
-  to {
-    width: calc(100% - 700px);
-  }
-`;
-
-const slideInLeft = keyframes`
-  from {
-    left: 100%;
-  }
-  to {
-    left: calc(100% - 700px);
-  }
-`;
 
 const StBoard = styled.div`
 position: fixed;
@@ -75,12 +68,11 @@ const StViewDiv = styled.div`
     animation: ${(props) => (props.slideAct ? slideLeft : null)} 1s linear forwards;
 `;
 
-const StInform = styled.div`
-  position: absolute;
-  top: 100px;
-  left: 100%;
-  width: 700px;
-  height: 100%;
-  background-color: white;
-  animation: ${(props) => (props.slideAct ? slideInLeft : null)} 1s linear forwards;
+const slideLeft = keyframes`
+  from {
+    width: 100%;
+  }
+  to {
+    width: calc(100% - 700px);
+  }
 `;

@@ -143,9 +143,7 @@ export default function GraphView(props) {
   const onNodeClick = useCallback(node => {
     if (node == null) return;
     if (node.type == TYPE.NODE) {
-      if (props.onNodeClick != null) {
-        props.onNodeClick(node);
-      }
+      props.clickHandle(node);
     }
     else if (node.type == TYPE.GROUP) {
       graphRef.current.zoomToFit(500, 100, 
