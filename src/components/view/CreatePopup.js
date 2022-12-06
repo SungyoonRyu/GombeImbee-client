@@ -44,8 +44,11 @@ export default function CreatePopup(props) {
                 <StLabel>{props.strings.title}</StLabel>
                 <StLabel>{props.strings.label}</StLabel>
                 <StInput onChange={props.onChange.input}/>
-                <StButton onClick={props.onChange.click}>
+                <StButton onClick={e=>props.onChange.click(e, true)}>
                     저장
+                </StButton>
+                <StButton onClick={e=>props.onChange.click(e, false)}>
+                    취소
                 </StButton>
             </StForm> 
         );

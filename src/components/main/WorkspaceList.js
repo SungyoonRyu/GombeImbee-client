@@ -54,20 +54,24 @@ export default function WorkspaceList() {
             var params = {title: createInput, own_user_id: userState.id};
             const addRes = await axios.post(server+'/workspace/add', params);
             if (addRes.status == 200) {
-                params = {}
+                params = {id: userState.id};
                 const workspaceRes = await axios.get(server+'/workspace/get_list', {params: params});
                 if (workspaceRes.status == 200) {
                     setWorkspaceData(workspaceRes.data);
                     setCurrentWorkspace(workspaceRes.data.find((ele)=>ele.title == createInput));
+                    setCreateState('completed');
                 }
-                setCreateState('completed');
+                else {
+                    setCreateError('ERROR: ' + workspaceRes.status);
+                    setCreateState('failure');
+                }
             }
         }
         catch (error) { console.log(error); }
     }
 
     const deleteWorkspace = async (event) => {
-        setCreateState('completed');
+        setDeleteState('completed');
 
         // try {
         //     let server = config.ip + config.port;
@@ -86,14 +90,19 @@ export default function WorkspaceList() {
         // catch (error) { console.log(error); }
     }
 
-    const createHandle = (event) => {
+    const createHandle = (event, next) => {
         event.preventDefault();
         if (createState == 'input') {
+            if (!next) {
+                setCreateInput("");
+                setCreateState('closed');
+                return;
+            }
             if (createInput.length == 0 || createInput.includes(' ')) {
                 setCreateError("Workspace 이름에는 공백이 포함될 수 없습니다.");
                 setCreateState('failure');
-                createWorkspace(event);
             }
+            else createWorkspace(event);
         }
         else if (createState == 'completed') {
             setCreateInput("");

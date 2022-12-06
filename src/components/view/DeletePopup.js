@@ -103,12 +103,3 @@ const StLabel = styled.label`
     width: 200px;
     font-size: 18px;
 `;
-
-const StInput = styled.input`
-    display: block;
-    margin: 10px auto;
-    height: 40px;
-    width: 500px;
-    background-color: #EBECEF;
-    border-style: none;
-`;
