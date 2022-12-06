@@ -46,9 +46,10 @@ const StLabel = styled.label`
 const StInput = styled.input`
     display: block;
     margin: 10px auto;
+    padding: 5px;
     height: 40px;
     width: 500px;
-    background-color: #EBECEF;
+    background-color: #CFCFCF;
     border-style: none;
 `;
 
