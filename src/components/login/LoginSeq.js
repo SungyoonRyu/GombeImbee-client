@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
-import { useSetRecoilState } from "recoil";
+import { useSetRecoilState, useRecoilState } from "recoil";
 import { isLoginState, nodeData, linkData, groupData, workspaceData, workspaceState } from "../../utils/atom";
 
 import axios from "axios";
@@ -15,9 +15,9 @@ export default function LoginSeq() {
 
     const [msg, setMsg] = useState();
     const [loading, setLoading] = useState(false);
-    const [modal, setModal] = useState(false);
+    const [alert, setAlert] = useState(false);
 
-    const setLoginState = useSetRecoilState(isLoginState);
+    const [loginState, setLoginState] = useRecoilState(isLoginState);
     const setNodeData = useSetRecoilState(nodeData);
     const setLinkData = useSetRecoilState(linkData);
     const setGroupData = useSetRecoilState(groupData);
@@ -28,11 +28,7 @@ export default function LoginSeq() {
     
     useEffect(() => {
         if (msg) {
-            setModal(true);
-            setTimeout(() => {
-                setMsg("");
-                setLoading(false);
-            }, 1500);
+            setAlert(true);
         }
     }, [msg]);
 
@@ -67,14 +63,14 @@ export default function LoginSeq() {
 
         // event.preventDefault();
         // setLoading(true);
-        // if (!id) setMsg(loginDef.ERROR.VALUE_NULL_ID);          
-        // else if (!pw) setMsg(loginDef.ERROR.VALUE_NULL_PASSWD);
+        // if      (!id) return setMsg(loginDef.ERROR.VALUE_NULL_ID);          
+        // else if (!pw) return setMsg(loginDef.ERROR.VALUE_NULL_PASSWD);
 
         // try {
         //     let reqData = {id: id, pw: pw};
         //     const res = await axios.post(config.ip+config.port+'/usr/signin', reqData)
         //     if (res.status == 200) {
-        //         setLoginState({state: true, id: res.data.id});  
+        //         setLoginState({state: true, id: res.data.id, name: res.data.name, email: res.data.email, profile_img: res.data.profile_img});  
         //         try {
         //             let server = config.ip + config.port;
         //             var params = {id: res.data.id};
@@ -118,20 +114,25 @@ export default function LoginSeq() {
         setPw(event.target.value);
     }
 
-    const onClosePopup = (event) => {
-        setModal(false);
+    const onCloseAlert = (event) => {
+        setAlert(false);
+        setLoading(false);
+        setMsg("");
+        if (loginState.state) {
+            navigate("/");
+        }
     }
 
     const onChange = {
         id: onChangeId,
         pw: onChangePw,
-        popup: onClosePopup
+        alert: onCloseAlert
     }
 
     const data = {
         loading: loading,
-        popupOpen: modal,
-        message: msg
+        isAlert: alert,
+        content: msg
     }
 
     return (

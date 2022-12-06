@@ -1,6 +1,9 @@
+import { useEffect } from 'react';
 import ReactModal from 'react-modal';
 
-export default function Popup(props) {
+import styled from "styled-components";
+
+export default function Alert(props) {
     let { style = {
         overlay: {
             position: "fixed",
@@ -14,7 +17,7 @@ export default function Popup(props) {
         content: {
             display: "flex",
             justifyContent: "center",
-            background: "#ffffe7",
+            background: "#ffffff",
             overflow: "auto",
             top: "42vh",
             left: "38vw",
@@ -31,13 +34,25 @@ export default function Popup(props) {
         <>
             <ReactModal
                 isOpen={props.isOpen}
-                onRequestClose={props.onRequestClose}
                 style={style}
             >
-                {props.content}
+                { props.content}
+                <StButton onClick={()=>props.onRequestClose()}>
+                    확인
+                </StButton>
             </ReactModal>
         </>
     );
 }
 
-ReactModal.setAppElement('#root');
+const StButton = styled.button`
+    display: block;
+    margin: 60px auto;
+    height: 50px;
+    width: 70px;
+    background-color: #2F76E6;
+    border-style: none;
+    font-size: 20px;
+    font-weight: bold;
+    color: #ffffff;
+`;

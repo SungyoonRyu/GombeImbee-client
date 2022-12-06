@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { Popup } from "../view";
+import { Alert } from "../view";
 
 export default function SignupForm(props) {
     return (
@@ -20,9 +20,9 @@ export default function SignupForm(props) {
                 <StButton type="submit" disabled={props.data.loading}>회원가입</StButton>
             </StForm>
 
-            <Popup 
-                isOpen={props.data.modal}
-                onRequestClose={props.onChange.popup}
+            <Alert 
+                isOpen={props.data.isAlert}
+                onRequestClose={props.onChange.alert}
                 content={props.data.message}
             />
         </>

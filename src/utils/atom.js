@@ -4,6 +4,9 @@ export const isLoginState = atom({
     key: "isLoginState",
     default: {
         id: "",
+        name: "",
+        email: "",
+        profile_img: "",
         state: false
     }
 });

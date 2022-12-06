@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { Popup } from "../view";
+import { Alert } from "../view";
 
 export default function LoginForm(props) {
     return (
@@ -21,10 +21,10 @@ export default function LoginForm(props) {
                     로그인
                 </StButton>
             </StForm>
-            <Popup
-                isOpen={props.data.popupOpen}
-                onRequestClose={props.onChange.popup}
-                content={props.data.message}
+            <Alert
+                isOpen={props.data.isAlert}
+                onRequestClose={props.onChange.alert}
+                content={props.data.content}
             />
         </>
     );
