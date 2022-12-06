@@ -31,7 +31,11 @@ export default function Board() {
                     backgroundColor='rgba(255,255,255,1.0)'
                 />
             </StViewDiv>
-            <StInform slideAct={leftslide}>test</StInform>
+            <StInform slideAct={leftslide}>
+                <StVirtualBrowser>
+                    <StIframe src={"https://youngest-programming.tistory.com/14"} />
+                </StVirtualBrowser>
+            </StInform>
         </StBoard>
     );
 }
@@ -56,10 +60,9 @@ const slideInLeft = keyframes`
 
 const StBoard = styled.div`
 position: fixed;
-transition: margin-left .5s;
 height: 100%;
 width:100%;
-padding: 10px;
+padding: 0px;
 padding-left: 250px;
 background-color: #CDE0FE;
 `;
@@ -83,4 +86,14 @@ const StInform = styled.div`
   height: 100%;
   background-color: white;
   animation: ${(props) => (props.slideAct ? slideInLeft : null)} 1s linear forwards;
+`;
+
+const StVirtualBrowser = styled.div`
+  width: 690px;
+  height: 650px;
+  overwrap: scroll;
+`;
+const StIframe = styled.iframe`
+  width: 690px;
+  height: 100%;
 `;
