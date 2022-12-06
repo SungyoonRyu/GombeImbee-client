@@ -28,7 +28,7 @@ const StLoginBox = styled.div`
     margin: 150px auto;
     height: 730px;
     width: 900px;
-    background-color: #F4F5F7;
+    background-color: #EAEAEA;
     boarder-radius: 10px 10px;
 `;
 
