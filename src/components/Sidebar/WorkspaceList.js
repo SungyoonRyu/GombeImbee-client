@@ -11,8 +11,6 @@ import { nodeData, linkData, groupData, workspaceData, workspaceState, isLoginSt
 import CreateWorkspaceButton from "./CreateWorkspaceButton";
 import DeleteWorkspaceButton from "./DeleteWorkspaceButton";
 
-import linkdata from "../request/link.json";
-
 export default function WorkspaceList() {
     const userState = useRecoilValue(isLoginState);
     const workspaces = useRecoilValue(workspaceData);
@@ -39,9 +37,6 @@ export default function WorkspaceList() {
             params = {id: workspace.id};
             const nodeRes = await axios.get(server+'/workspace/get_node', {params: params});
             setNodeData(nodeRes.data);
-
-            if (workspace.title == "컴퓨터공학") setLinkData(linkdata);
-            else setLinkData([]);
         }
         catch (error) { console.log(error); }
     }

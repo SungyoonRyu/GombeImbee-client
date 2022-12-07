@@ -39,7 +39,7 @@ export default function Board() {
                     activate={viewState}
                     clickHandle={clickHandle}
                     addBookmark={addBookmark}
-
+                    currentNode={current}
                     addGroup={setAddGroup}
                 />
                 <GraphView

@@ -35,75 +35,47 @@ export default function LoginSeq() {
     const login = async (event) => {
         event.preventDefault();
         setLoading(true);
-        setLoginState({state: true, id: 'qwer'});
+        if      (!id) return setMsg(loginDef.ERROR.VALUE_NULL_ID);          
+        else if (!pw) return setMsg(loginDef.ERROR.VALUE_NULL_PASSWD);
 
         try {
-            let server = config.ip + config.port;
-            var params = {id: 'qwer'};
-            const workspaceRes = await axios.get(server+'/workspace/get_list', {params: params});
-            if (workspaceRes.status == 200) {
-                let initialWorkspace = workspaceRes.data[0]
-                setWorkspaceData(workspaceRes.data);
-                setWorkspaceState(initialWorkspace);
-
+            let reqData = {id: id, pw: pw};
+            const res = await axios.post(config.ip+config.port+'/usr/signin', reqData)
+            if (res.status == 200) {
+                setLoginState({state: true, id: res.data.id, name: res.data.name, email: res.data.email, profile_img: res.data.profile_img});  
                 try {
-                    params = {id: initialWorkspace.id}
-                    const groupRes = await axios.get(server+'/group/get_list', {params: params});
-                    setGroupData(groupRes.data);
-
-                    params = {id: initialWorkspace.id}
-                    const nodeRes = await axios.get(server+'/workspace/get_node', {params: params});
-                    setNodeData(nodeRes.data);
+                    let server = config.ip + config.port;
+                    var params = {id: res.data.id};
+                    const workspaceRes = await axios.get(server+'/workspace/get_list', {params: params});
+                    if (workspaceRes.status == 200) {
+                        let initialWorkspace = workspaceRes.data[0]
+                        setWorkspaceData(workspaceRes.data);
+                        setWorkspaceState(initialWorkspace);
+    
+                        try {
+                            params = {id: initialWorkspace.id}
+                            const groupRes = await axios.get(server+'/group/get_list', {params: params});
+                            setGroupData(groupRes.data);
+    
+                            params = {id: initialWorkspace.id}
+                            const nodeRes = await axios.get(server+'/workspace/get_node', {params: params});
+                            setNodeData(nodeRes.data);
+                        }
+                        catch (error) { console.log(error); }
+                    }
                 }
                 catch (error) { console.log(error); }
+                navigate("/main");
+            }
+            else {
+                let state = res.status;
+                if      (state == 400) setMsg(loginDef.ERROR.VALUE_NULL);
+                else if (state == 401) setMsg(loginDef.ERROR.INVALID_ID);
+                else if (state == 402) setMsg(loginDef.ERROR.INVALID_PASSWD);
+                else                   setMsg(loginDef.ERROR.UNKNOWN);
             }
         }
-        catch (error) { console.log(error); }
-        navigate("/main");
-
-        // event.preventDefault();
-        // setLoading(true);
-        // if      (!id) return setMsg(loginDef.ERROR.VALUE_NULL_ID);          
-        // else if (!pw) return setMsg(loginDef.ERROR.VALUE_NULL_PASSWD);
-
-        // try {
-        //     let reqData = {id: id, pw: pw};
-        //     const res = await axios.post(config.ip+config.port+'/usr/signin', reqData)
-        //     if (res.status == 200) {
-        //         setLoginState({state: true, id: res.data.id, name: res.data.name, email: res.data.email, profile_img: res.data.profile_img});  
-        //         try {
-        //             let server = config.ip + config.port;
-        //             var params = {id: res.data.id};
-        //             const workspaceRes = await axios.get(server+'/workspace/get_list', {params: params});
-        //             if (workspaceRes.status == 200) {
-        //                 let initialWorkspace = workspaceRes.data[0]
-        //                 setWorkspaceData(workspaceRes.data);
-        //                 setWorkspaceState(initialWorkspace);
-    
-        //                 try {
-        //                     params = {id: initialWorkspace.id}
-        //                     const groupRes = await axios.get(server+'/group/get_list', {params: params});
-        //                     setGroupData(groupRes.data);
-    
-        //                     params = {id: initialWorkspace.id}
-        //                     const nodeRes = await axios.get(server+'/workspace/get_node', {params: params});
-        //                     setNodeData(nodeRes.data);
-        //                 }
-        //                 catch (error) { console.log(error); }
-        //             }
-        //         }
-        //         catch (error) { console.log(error); }
-        //         navigate("/main");
-        //     }
-        //     else {
-        //         let state = res.status;
-        //         if      (state == 400) setMsg(loginDef.ERROR.VALUE_NULL);
-        //         else if (state == 401) setMsg(loginDef.ERROR.INVALID_ID);
-        //         else if (state == 402) setMsg(loginDef.ERROR.INVALID_PASSWD);
-        //         else                   setMsg(loginDef.ERROR.UNKNOWN);
-        //     }
-        // }
-        // catch (error) { setMsg(loginDef.ERROR.UNKNOWN); }
+        catch (error) { setMsg(loginDef.ERROR.UNKNOWN); }
     }
 
     const onChangeId = (event) => {
