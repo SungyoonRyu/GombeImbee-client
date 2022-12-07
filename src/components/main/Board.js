@@ -9,7 +9,7 @@ import Topbar from "./Topbar";
 export default function Board() {
     const [viewState, setView] = useState(false);
     const [leftslide, setleftslide] = useState(false);
-    const [current, setCurrent] = useState(null);
+    const [current, setCurrent] = useState({});
     
     const [addState, setAddState] = useState('closed');
     const [group_id, setGroupId] = useState('');
@@ -39,7 +39,11 @@ export default function Board() {
                     activate={viewState}
                     clickHandle={clickHandle}
                     addBookmark={addBookmark}
+<<<<<<< HEAD
                     addGroup={setAddGroup}
+=======
+                    currentNode={current}
+>>>>>>> style
                 />
                 <GraphView
                     activate={!viewState}
@@ -50,6 +54,7 @@ export default function Board() {
             </StViewDiv>
 
             <StInform slideAct={leftslide}>
+                <div onClick={()=>{setCurrent({});setleftslide(false);}}>X</div>
                 <StVirtualBrowser>
                     <StIframe src={"https://youngest-programming.tistory.com/14"} />
                 </StVirtualBrowser>
@@ -86,6 +91,7 @@ background-color: #CDE0FE;
 
 const StBoardHeader = styled.div`
     height: 100px;
+    min-width: 750px;
 `;
 
 const StViewDiv = styled.div`

@@ -41,7 +41,7 @@ export default function ListView(props) {
               {nodes.filter(node => node.group_id === group.id)
                 .map((node) => {
                   return (
-                    <StBookNode key={node.id} onClick={()=>props.clickHandle(node)}> 
+                    <StBookNode key={node.id} nodeId={node.id} checkID={props.currentNode.id} onClick={()=>{props.clickHandle(node)}}> 
                       <StBookName>
                         {node.title} 
                       </StBookName>
@@ -51,9 +51,9 @@ export default function ListView(props) {
                 }
               )}
 
-              <StBookNode onClick={()=>props.addBookmark(group.id)}>
+              <StBookNode nodeId={-2} checkID={props.currentNode.id} onClick={()=>props.addBookmark(group.id)}>
                 <p>
-                  + New Bookmark 
+                  +New Bookmark 
                 </p>
               </StBookNode>
             </StGroup>
@@ -99,14 +99,16 @@ const StGroupName = styled.h2`
 `;
 
 const StBookNode = styled.div`
-  background-color: #ffffff;
+  background-color: ${(props) => ((props.checkID == props.nodeId) ? "black;" : "#ffffff;" )}
+  color: ${(props) => ((props.checkID == props.nodeId) ? "white;" : "#;black" )}
   overflow: visible;
   border-radius: 10px;
   width: 100%;
   margin: 5px;
   padding: 8px;
   &:hover {
-    background-color: #D3D3D3;
+    background-color: ${(props) => ((props.checkID == props.nodeId) ? "black;" : "#D3D3D3;" )}
+    color: ${(props) => ((props.checkID == props.nodeId) ? "white;" : "#black;" )}
   }
 `;
 

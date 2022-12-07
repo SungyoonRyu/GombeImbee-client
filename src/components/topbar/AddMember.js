@@ -15,6 +15,7 @@ export default function AddMember() {
     const [memberInput, setMemberInput] = useState();
 
     const currentWorkspace = useRecoilValue(workspaceState);
+    const [createStyle, setCreateStyle] = useState(styleInput);
 
     const addMember = async (event) => {
         try {
@@ -23,6 +24,7 @@ export default function AddMember() {
             const res = await axios.post(server+'/workspace/add_workspace_member', params);
             if (res.status != 200) console.log(res.status);
             setMemberState('completed');
+            setCreateStyle(styleInput);
         }
         catch (error) { console.log(error); }
     }
@@ -33,6 +35,7 @@ export default function AddMember() {
             if (!next) {
                 setMemberInput('');
                 setMemberState('closed');
+                setCreateStyle(styleInput);
                 return;
             }
             addMember(event);
@@ -40,10 +43,12 @@ export default function AddMember() {
         else if (memberState == 'completed') {
             setMemberInput('');
             setMemberState('closed');
+            setCreateStyle(styleInput);
         }
         else if (memberState == 'failure') {
             setMemberInput('');
             setMemberState('input');
+            setCreateStyle(styleInput);
         }
     }
 
@@ -78,11 +83,51 @@ export default function AddMember() {
                 data={memberData}
                 onChange={memberChange}
                 string={addMemberStr}
+                style={createStyle}
             />
         </>
     );
 }
 
 const StButton = styled.button`
-
+    display: inline-block;
+    margin: 5px auto 5px 10px;
+    height: 30px;
+    width: 130px;
+    background-color: #5999FE;
+    border: none;
+    border-radius: 20px;
+    font-size: 20px;
+    color: white;
+    &:hover {
+        background-color:#00368C;
+    }
 `;
+
+
+let styleInput = {
+    overlay: {
+        position: "fixed",
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        backgroundColor: "rgba(255, 255, 255, 0.45)",
+        zIndex: 10,
+    },
+        content: {
+        display: "flex",
+        alignItems: "initial",
+        justifyContent: "flex-start",
+        background: "#EAEAEA",
+        overflow: "auto",
+        top: "25vh",
+        left: "29vw",
+        right: "29vw",
+        bottom: "35vh",
+        WebkitOverflowScrolling: "touch",
+        borderRadius: "14px",
+        outline: "none",
+        zIndex: 10
+    }
+}

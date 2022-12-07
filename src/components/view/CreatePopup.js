@@ -138,7 +138,7 @@ const StInput = styled.input`
     display: block;
     margin: 10px auto;
     height: 40px;
-    width: 500px;
+    width: 90%;
     background-color: #FFFFFF;
     border-style: none;
 `;

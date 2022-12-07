@@ -1,25 +1,48 @@
 import styled from "styled-components";
+import { useRecoilValue } from "recoil";
+import { workspaceState } from "../../utils/atom";
 
 import { AddMember, EditMember } from "../topbar";
 
 export default function Topbar(props) {
-    
+    const currentWorkspace = useRecoilValue(workspaceState);
 
     return (
         <>
-            <AddMember/>
-            <EditMember/>
-            <StChangeButton onClick={props.changeView}> change view </StChangeButton>
+            <div>
+                <StWorkspaceName>{currentWorkspace.title}</StWorkspaceName>
+                <AddMember/>
+                <EditMember/>
+            </div>
+            <div>
+                <StChangeButton onClick={props.changeView}> change view </StChangeButton>
+            </div>
         </>
     );
 };
 
+const StWorkspaceName = styled.h1`
+    display: inline-block;
+    margin: 5px auto 5px 20px;
+    vertical-align: top;
+    width: calc(100% - 340px);
+    height: 30px;
+    border-radius: 15px;
+    background-color: #D3D3D3;
+`;
+
 const StChangeButton = styled.div`
-    height: 50px;
-    width: 100px;
-    background-color: #7AC5CA;
+    display: inline-block;
+    margin: 5px auto 5px 10px;
+    height: 40px;
+    width: 130px;
+    padding: 13px;
+    background-color: black;
+    color: white;
+    border-radius: 11px;
+    text-align: center;
     font-family: sans-serif;
     &:hover {
-        background-color: #6699FF;
+        background-color: gray;
     }
 `;
