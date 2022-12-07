@@ -23,10 +23,6 @@ export default function AddBookmark(props) {
             let params = {title: title, url: url, tag: tag, description: description, group_id: props.group_id}
             const res = await axios.get(server+'/bookmark/add', {params: params});
             if (res.status == 200) {
-                setTitle('');
-                setUrl('');
-                setTag('');
-                setDescription('');
                 props.setAddState('completed');
 
                 params = {id: currentWorkspace.id}

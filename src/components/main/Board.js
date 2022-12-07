@@ -1,6 +1,7 @@
 import { useState } from "react";
 import styled, { keyframes } from "styled-components"
-import AddBookmark from "../Board/AddBoobmark";
+
+import { AddGroup, AddBookmark } from "../Board";
 
 import { GraphView, InfoView, ListView } from "../view";
 import Topbar from "./Topbar";
@@ -12,6 +13,8 @@ export default function Board() {
     
     const [addState, setAddState] = useState('closed');
     const [group_id, setGroupId] = useState('');
+
+    const [addGroup, setAddGroup] = useState('closed');
 
     const clickHandle = (node) => {
         setleftslide(true);
@@ -36,6 +39,7 @@ export default function Board() {
                     activate={viewState}
                     clickHandle={clickHandle}
                     addBookmark={addBookmark}
+                    addGroup={setAddGroup}
                 />
                 <GraphView
                     activate={!viewState}
@@ -59,6 +63,11 @@ export default function Board() {
                     group_id={group_id}
                     addState={addState}
                     setAddState={setAddState}
+                />
+
+                <AddGroup
+                    addGroup={addGroup}
+                    setAddGroup={setAddGroup}
                 />
             </StInform>
         </StBoard>
