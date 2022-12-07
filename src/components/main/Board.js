@@ -1,13 +1,20 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled, { keyframes } from "styled-components"
 
 import { AddGroup, AddBookmark } from "../Board";
 
-import { GraphView, InfoView, ListView } from "../view";
+import { GraphView, InfoView, ListView, SearchView } from "../view";
+
+import { useSetRecoilState, useRecoilState, useRecoilValue } from "recoil";
+import { isLoginState, nodeData, linkData, groupData, workspaceData, workspaceState } from "../../utils/atom";
+
+import axios from "axios";
+import { config } from "../../definitions";
+
 import Topbar from "./Topbar";
 
 export default function Board() {
-    const [viewState, setView] = useState(false);
+    const [viewState, setView] = useState('view');
     const [leftslide, setleftslide] = useState(false);
     const [current, setCurrent] = useState({});
     
@@ -15,6 +22,10 @@ export default function Board() {
     const [group_id, setGroupId] = useState('');
 
     const [addGroup, setAddGroup] = useState('closed');
+
+    const [search, setSearch] = useState('');
+    const [searchNodes, setSearchNodes] = useState();
+    const currentWorkspace = useRecoilValue(workspaceState);
 
     const clickHandle = (node) => {
         setleftslide(true);
@@ -26,27 +37,63 @@ export default function Board() {
         setGroupId(group_id);
     }
 
+    const onSearchChange = (event) => {
+        setSearch(event.target.value);
+        if (event.target.value == '') {
+            setView('view');
+            return;
+        }
+        setView('search');
+        searching(event, event.target.value);
+    }
+
+    const searching = async (event, str) => {
+        event.preventDefault();
+        try {
+            let server = config.ip + config.port;
+            let params = { workspace_id: currentWorkspace.id, str: str }
+            const res = await axios.post(server + '/bookmark/search', params);
+            if (res.status == 200) {
+                setSearchNodes(res.data);
+            }
+            else console.log(res.status);
+        }
+        catch (error) { console.log(error); }
+    }
+
     return (
         <StBoard>
             <StBoardHeader>
                 <Topbar
-                    changeView={()=>setView(!viewState)}
+                    changeView={()=>{
+                        if (viewState == 'view') setView('graph')
+                        else setView('view')
+                    }}
+                    onChange={onSearchChange}
                 />
             </StBoardHeader>
 
             <StViewDiv slideAct={leftslide}>
                 <ListView 
-                    activate={viewState}
+                    activate={viewState == 'view'}
                     clickHandle={clickHandle}
                     addBookmark={addBookmark}
                     currentNode={current}
                     addGroup={setAddGroup}
                 />
                 <GraphView
-                    activate={!viewState}
+                    activate={viewState == 'graph'}
                     clickHandle={clickHandle}
                     addBookmark={addBookmark}
                     backgroundColor='rgba(255,255,255,1.0)'
+                />
+                <SearchView
+                    activate={viewState == 'search'}
+                    clickHandle={clickHandle}
+                    addBookmark={addBookmark}
+                    currentNode={current}
+                    addGroup={setAddGroup}
+                    nodes={searchNodes}
                 />
             </StViewDiv>
 

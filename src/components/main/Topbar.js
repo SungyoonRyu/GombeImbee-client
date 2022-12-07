@@ -15,6 +15,7 @@ export default function Topbar(props) {
                 <EditMember/>
             </div>
             <div>
+                <StSearchBar onChange={props.onChange}/>
                 <StChangeButton onClick={props.changeView}> change view </StChangeButton>
             </div>
         </>
@@ -47,4 +48,16 @@ const StChangeButton = styled.div`
     &:hover {
         background-color: gray;
     }
+`;
+
+const StSearchBar = styled.input`
+    display: inline-block;
+    margin: 5px auto 5px 20px;
+    vertical-align: top;
+    width: calc(100% - 340px);
+    height: 30px;
+    border-radius: 15px;
+    background-color: #D3D3D3;
+    font-size: 24px;
+    text-align: center;
 `;
