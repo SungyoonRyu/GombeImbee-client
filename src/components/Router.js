@@ -12,7 +12,7 @@ export default function Router() {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="/" element={login.state ? <Main/> : <Landing/>} />
+                <Route path="/" element={login.state ? <Main/> : <Login/>} />
                 <Route path="/login" element={login.state ? <Main/> : <Login/>} />
                 <Route path="/main" element={login.state ? <Main/> : <Login/>} />
                 <Route path="/signup" element={login.state ? <Main/> : <Signup/>} />
