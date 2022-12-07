@@ -57,6 +57,7 @@ export default function Board() {
                 <InfoView
                     slideAct={leftslide}
                     node={current}
+                    setNode={setCurrent}
                 />
 
                 <AddBookmark 
