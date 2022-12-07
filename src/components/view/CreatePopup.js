@@ -16,7 +16,7 @@ export default function CreatePopup(props) {
         content: {
             display: "flex",
             justifyContent: "center",
-            background: "#ffffff",
+            background: "#EAEAEA",
             overflow: "auto",
             top: "20vh",
             left: "20vw",

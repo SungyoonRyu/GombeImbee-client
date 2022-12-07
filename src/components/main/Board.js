@@ -53,7 +53,7 @@ export default function Board() {
             <StInform slideAct={leftslide}>
                 <div onClick={()=>{setCurrent({});setleftslide(false);}}>X</div>
                 <StVirtualBrowser>
-                    <StIframe src={"https://youngest-programming.tistory.com/14"} />
+                    <StIframe src={current.url} />
                 </StVirtualBrowser>
 
                 <InfoView

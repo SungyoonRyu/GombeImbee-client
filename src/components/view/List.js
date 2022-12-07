@@ -17,11 +17,11 @@ export default function ListView(props) {
     return(
         <StList>
         
-        <StGroup>
-          <StGroupName onClick={()=>props.addGroup('input')}>
+        <StAddGroupWrapper>
+          <StAddGroup onClick={()=>props.addGroup('input')}>
             +
-          </StGroupName>
-        </StGroup>
+          </StAddGroup>
+        </StAddGroupWrapper>
 
 
         {groups.map((group) => {
@@ -64,11 +64,11 @@ export default function ListView(props) {
           );
         })}
 
-        <StGroup>
-          <StGroupName onClick={()=>props.addGroup('input')}>
+        <StAddGroupWrapper>
+          <StAddGroup onClick={()=>props.addGroup('input')}>
             +
-          </StGroupName>
-        </StGroup>
+          </StAddGroup>
+        </StAddGroupWrapper>
 
         <DeleteGroup
           deleteState={deleteState}
@@ -108,6 +108,28 @@ const StGroupName = styled.h2`
   font-weight: bold;
 `;
 
+const StAddGroupWrapper = styled.div`
+  position: relative;
+  width: 100px;
+  min-width: 100px;
+  margin: 10px 10px;
+`;
+
+const StAddGroup = styled.h2`
+  border-radius: 10px;
+  margin: 5px 5px 20px;
+  padding 17px;
+  background-color: #B9D2FB;
+  text-align: center;
+  font-size: 20px;
+  height: 55px;
+  width: 100%;
+  font-weight: bold;
+  &:hover {
+    background-color: #5D7396;
+  }
+`;
+
 const StBookNode = styled.div`
   background-color: ${(props) => ((props.checkID == props.nodeId) ? "black;" : "#ffffff;" )}
   color: ${(props) => ((props.checkID == props.nodeId) ? "white;" : "#;black" )}
@@ -128,8 +150,11 @@ const StBookName = styled.p`
 `;
 
 const StDeleteButton = styled.button`
-    margin: 0px
-    display: inline-block;
+    margin: 0px;
+    display: block;
+    position: absolute;
+    top: 20px;
+    right: 20px;
     margin: 0px 0px 16px;
     width:40px;
     height: 21px;

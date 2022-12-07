@@ -60,13 +60,13 @@ export default function BookmarkPopup(props) {
 
     const completeForm = () => {
         return (
-            <form>
-                <label>{props.string.title}</label>
-                <label>{props.string.complete}</label>    
-                <button onClick={props.handler}>
+            <StForm>
+                <StTitle>{props.string.title}</StTitle>
+                <STNotice>{props.string.complete}</STNotice>    
+                <StButton onClick={props.handler}>
                     확인
-                </button>
-            </form> 
+                </StButton>
+            </StForm> 
         );
     }
 
