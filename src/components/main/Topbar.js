@@ -29,6 +29,8 @@ const StWorkspaceName = styled.h1`
     height: 30px;
     border-radius: 15px;
     background-color: #D3D3D3;
+    font-size: 24px;
+    text-align: center;
 `;
 
 const StChangeButton = styled.div`
