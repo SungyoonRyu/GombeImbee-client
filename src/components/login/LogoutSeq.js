@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useResetRecoilState } from "recoil";
+import styled from "styled-components";
 import { isLoginState, nodeData, linkData, groupData, workspaceData } from "../../utils/atom";
 
 export default function LogoutSeq() {
@@ -20,8 +21,18 @@ export default function LogoutSeq() {
     }
 
     return (
-        <>
-            <button onClick={logout}>Log out</button>
-        </>
+        <StLogout onClick={logout}>Log out</StLogout>
     );
 }
+
+const StLogout = styled.button`
+    margin: auto;
+    display: block;
+    width: 100px;
+    background-color: white;
+    border: dotted 1px;
+    &:hover {
+        background-color: darkgray;
+        color: white;
+    }
+`;

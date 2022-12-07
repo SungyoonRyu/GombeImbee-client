@@ -14,7 +14,7 @@ export default function UserPofile() {
 }
 
 const StWrapper = styled.div`
-    margin: 20px 0px 40px;
+    margin: 20px 0px 20px;
 `;
 
 const StUserImg = styled.div`

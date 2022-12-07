@@ -84,5 +84,16 @@ export default function AddMember() {
 }
 
 const StButton = styled.button`
-
+    display: inline-block;
+    margin: 5px auto 5px 10px;
+    height: 30px;
+    width: 130px;
+    background-color: #5999FE;
+    border: none;
+    border-radius: 20px;
+    font-size: 20px;
+    color: white;
+    &:hover {
+        background-color:#00368C;
+    }
 `;
