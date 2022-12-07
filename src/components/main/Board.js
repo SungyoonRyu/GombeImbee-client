@@ -39,11 +39,8 @@ export default function Board() {
                     activate={viewState}
                     clickHandle={clickHandle}
                     addBookmark={addBookmark}
-<<<<<<< HEAD
+
                     addGroup={setAddGroup}
-=======
-                    currentNode={current}
->>>>>>> style
                 />
                 <GraphView
                     activate={!viewState}
