@@ -16,14 +16,17 @@ export default function ListView(props) {
   if (props.activate) {
     return(
         <StList>
+        
+        <StGroup>
+          <StGroupName onClick={()=>props.addGroup('input')}>
+            +
+          </StGroupName>
+        </StGroup>
+
+
         {groups.map((group) => {
           return (
             <>
-            <StGroup>
-              <StGroupName onClick={()=>props.addGroup('input')}>
-                +
-              </StGroupName>
-            </StGroup>
 
             <StGroup 
               key={group.id}
@@ -60,6 +63,13 @@ export default function ListView(props) {
             </>
           );
         })}
+
+        <StGroup>
+          <StGroupName onClick={()=>props.addGroup('input')}>
+            +
+          </StGroupName>
+        </StGroup>
+
         <DeleteGroup
           deleteState={deleteState}
           group={deleteGroup}
