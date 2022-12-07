@@ -25,7 +25,7 @@ export default function EditMember(props) {
         content: {
             display: "flex",
             justifyContent: "center",
-            background: "#ffffff",
+            background: "#EAEAEA",
             overflow: "auto",
             top: "10vh",
             left: "10vw",
@@ -77,8 +77,8 @@ export default function EditMember(props) {
                 isOpen={invite}
                 style={style}
             >
-                <StLabel>맴버 수정하기</StLabel>
-                <StButton onClick={()=>{setInvite(false)}}>X</StButton>
+                <StTitle>맴버 수정하기</StTitle>
+                <StClose onClick={()=>{setInvite(false)}}>X</StClose>
                 <StLabel>Workspace: {currentWorkspace.title}</StLabel>
                 { member.map(ele=>{
                     if (ele.id == userState.id) return null;
@@ -88,7 +88,7 @@ export default function EditMember(props) {
                         </StButton>
                     );
                 })}
-                <StLabel>맴버를 클릭하여 삭제할 수 있습니다.</StLabel>
+                <STNotice>맴버를 클릭하여 삭제할 수 있습니다.</STNotice>
             </ReactModal>
         </>
     );
@@ -114,4 +114,36 @@ const StButton = styled.button`
     &:hover {
         background-color:#00368C;
     }
+`;
+
+const StClose = styled.button`
+    position: absolute;
+    display: block;
+    width: 25px;
+    height: 25px;
+    right: 15px;
+    top: 15px;
+    border: none;
+    color: white;
+    background-color: #5999FE;
+    &:hover {
+        background-color: #00368C;
+    }
+`;
+
+const StTitle = styled.h1`
+    display: block;
+    margin: 20px 10px 100px 10px;
+    width: 320px;
+    font-size: 22px;
+    text-align: start;
+    text-weight: bold;
+`;
+
+const STNotice = styled.p`
+    display: block;
+    margin: 10px;
+    padding: 30px 10px;
+    font-size: 20px;
+    text-align: start;
 `;

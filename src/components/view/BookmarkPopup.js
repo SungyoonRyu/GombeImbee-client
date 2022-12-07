@@ -1,4 +1,5 @@
 import ReactModal from "react-modal";
+import styled from "styled-components";
 
 export default function BookmarkPopup(props) {
     let { style = {
@@ -14,12 +15,12 @@ export default function BookmarkPopup(props) {
         content: {
             display: "flex",
             justifyContent: "center",
-            background: "#ffffff",
+            background: "#EAEAEA",
             overflow: "auto",
-            top: "20vh",
-            left: "20vw",
-            right: "20vw",
-            bottom: "20vh",
+            top: "11vh",
+            left: "28vw",
+            right: "28vw",
+            bottom: "12vh",
             WebkitOverflowScrolling: "touch",
             borderRadius: "14px",
             outline: "none",
@@ -36,24 +37,24 @@ export default function BookmarkPopup(props) {
 
     const inputForm = () => {
         return (
-            <form>
-                <label>{props.string.title}</label>
-                <label>{props.string.label}</label>
-                <label>Title</label>
-                <input onChange={e=>props.input(e, 'title')}/>
-                <label>URL</label>
-                <input onChange={e=>props.input(e, 'url')}/>
-                <label>Tag</label>
-                <input onChange={e=>props.input(e, 'tag')}/>
-                <label>Info</label>
-                <input onChange={e=>props.input(e, 'info')}/>
-                <button onClick={e=>props.handler(e, true)}>
+            <StForm>
+                <StTitle>{props.string.title}</StTitle>
+                <STNotice>{props.string.label}</STNotice>
+                <StLabel>Title</StLabel>
+                <StInput onChange={e=>props.input(e, 'title')}/>
+                <StLabel>URL</StLabel>
+                <StInput onChange={e=>props.input(e, 'url')}/>
+                <StLabel>Tag</StLabel>
+                <StInput onChange={e=>props.input(e, 'tag')}/>
+                <StLabel>Info</StLabel>
+                <StInput onChange={e=>props.input(e, 'info')}/>
+                <StButton onClick={e=>props.handler(e, true)}>
                     저장
-                </button>
-                <button onClick={e=>props.handler(e, false)}>
+                </StButton>
+                <StButton onClick={e=>props.handler(e, false)}>
                     취소
-                </button>
-            </form> 
+                </StButton>
+            </StForm> 
         );
     }
 
@@ -78,3 +79,55 @@ export default function BookmarkPopup(props) {
         </ReactModal>
     );
 }
+
+
+const StButton = styled.button`
+    display: inline-block;
+    margin: 40px 30px;
+    height: 50px;
+    width: 110px;
+    background-color: #2F76E6;
+    border-style: none;
+    font-size: 20px;
+    font-weight: bold;
+    color: #ffffff;
+`;
+
+const StForm = styled.form`
+    margin: 20px;
+    padding: 0px 0px;
+    width: 800px;
+    text-align: center;
+`;
+
+const StTitle = styled.h1`
+    margin: 20px 10px 100px 10px;
+    width: 400px;
+    font-size: 22px;
+    text-align: start;
+    text-weight: bold;
+`;
+
+const StLabel = styled.label`
+    display: block;
+    margin: 40px 10px 10px;
+    width: 400px;
+    font-size: 18px;
+    text-align: start;
+`;
+
+const STNotice = styled.p`
+    margin: 10px;
+    padding: 10px;
+    font-size: 20px;
+    text-align: start;
+`;
+
+const StInput = styled.input`
+    display: block;
+    margin: 10px auto;
+    height: 40px;
+    width: 90%;
+    background-color: #FFFFFF;
+    border-style: none;
+`;
